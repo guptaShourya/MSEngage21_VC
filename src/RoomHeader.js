@@ -7,30 +7,54 @@ import MicOffIcon from '@material-ui/icons/MicOffTwoTone';
 import GroupAddIcon from '@material-ui/icons/GroupAddTwoTone';
 import DialogBox from './DialogBox';
 
+const RoomHeader = ({handleLogout, room}) => {
 
-const RoomHeader = ({handleLogout}) => {
-
+    // state variables - used to swtich microphone and camera on/off
     const [isMic, setIsMic] = useState(true);
     const [isCamera, setIsCamera] = useState(true);
 
-    const handleMic = () => {
-      setIsMic(!isMic);
-    }
-    const handleVideo = () => {
-      setIsCamera(!isCamera);
+    // method to handle switch on/off
+    const switchOnOff = (media) => (event) => {
+      // for microphone
+      if(media === 'Mic'){
+        if(isMic){ // to mute the mic
+          room.localParticipant.audioTracks.forEach(publication => {
+            publication.track.disable();
+          });        
+        }else{ // to unmute the mic
+          room.localParticipant.audioTracks.forEach(publication => {
+            publication.track.enable();
+          });
+        }
+        // toggle to current state
+        setIsMic(!isMic);
+      }else{
+        // for camera
+        if(isCamera){ //to turn off videostream
+          room.localParticipant.videoTracks.forEach(publication => {
+            publication.track.disable();
+          });
+        }else{ // to turn on videostream
+          room.localParticipant.videoTracks.forEach(publication => {
+            publication.track.enable();
+          });
+        }
+        // toggle to current state
+        setIsCamera(!isCamera);
+      }
     }
     return(
       <div id = "toolbar">
         {/* video camera icon */}
         <div>
-          <button onClick = {handleVideo}>
-          {!isCamera?<VideocamIcon/>:<VideocamOffIcon/>}
+          <button onClick = {switchOnOff("Cam")}>
+          {isCamera?<VideocamIcon/>:<VideocamOffIcon/>}
           </button>
         </div>
         {/* microphone icon */}
         <div>
-          <button onClick = {handleMic}>
-            {!isMic?<MicIcon/>:<MicOffIcon/>}
+          <button onClick = {switchOnOff("Mic")}>
+            {isMic?<MicIcon/>:<MicOffIcon/>}
           </button>
         </div>
         {/* End call icon */}
