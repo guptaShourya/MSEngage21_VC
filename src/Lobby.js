@@ -12,7 +12,7 @@ const Lobby = ({
   return (
     <form onSubmit={handleSubmit}>
       {/* {document.title = "Join a Chat"} */}
-      <h2>Join a Chat</h2>
+      <h2>Join a Meeting</h2>
       {/* Input for Username */}
       <div>
         <label htmlFor="name">Name:</label>
