@@ -1,8 +1,5 @@
 import React, { useEffect, useState } from "react";
 import Participant from "./Participant";
-import RoomHeader from "./RoomHeader";
-import DialogBox from "./DialogBox";
-import AddBoxIcon from '@material-ui/icons/AddBox';
 
 // Rooms.js - connects to Twilio video services
 
@@ -45,9 +42,6 @@ const Room = ({ roomName, room, handleLogout }) => {
   
   return (
     <div className="room">
-      {/* <h2>Room: {roomName}</h2>
-      {addOthers && <DialogBox roomName = {roomName}/>}
-      <button onClick={handleLogout}>Leave</button> */}
       <div className="local-participant" style = {{display:'flex', flexWrap:'wrap'}}>
         {room ? (
           <Participant
@@ -59,8 +53,6 @@ const Room = ({ roomName, room, handleLogout }) => {
         )}
         {remoteParticipants}
       </div>
-      {/* <h3>{remoteParticipants.length!==0 ? "Participants" : ""}</h3> */}
-      {/* <div className="remote-participants" style = {{display : 'flex'}}>{remoteParticipants}</div> */}
     </div>
   );
 };

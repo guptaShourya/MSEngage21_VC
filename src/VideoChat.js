@@ -93,8 +93,10 @@ const VideoChat = () => {
   if (room) {
     render = (
       <>
-      <RoomHeader handleLogout = {handleLogout}/>
       <Room roomName={roomName} room={room} handleLogout={handleLogout} />
+      <footer>
+        <RoomHeader handleLogout = {handleLogout} room = {room} roomName = {roomName}/>
+      </footer>
       </>
     );
   } else { 
