@@ -13,7 +13,7 @@
     "react-scripts": "^4.0.1",
     "reactstrap": "^8.9.0",
     "twilio": "^3.54.2",
-    "twilio-video": "^2.10.0"
+    "twilio-video": "^2.15.0"
   },
   "scripts": {
     "start": "react-scripts start",
