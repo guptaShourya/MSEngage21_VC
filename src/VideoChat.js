@@ -23,7 +23,7 @@ const VideoChat = () => {
     setRoomName(event.target.value);
   }, []);
 
-  // Method to send Username & Roomname to the server
+      // Method to send Username & Roomname to the server
   // And recieve an access token
   const handleSubmit = useCallback(
     async (event) => {
@@ -43,6 +43,7 @@ const VideoChat = () => {
       // connects to the room using twilio API
       Video.connect(data.token, {
         name: roomName,
+        dominantSpeaker : true
       }).then((room) => {
           setConnecting(false);
           setRoom(room);
@@ -86,7 +87,6 @@ const VideoChat = () => {
       };
     }
   }, [room, handleLogout]);
-
   let render;
 
   // if room already exists then render Room.js
