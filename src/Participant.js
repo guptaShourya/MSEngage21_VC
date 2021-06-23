@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
 
-const Participant = ({ participant }) => {
+const Participant = ({ participant, local }) => {
   const [videoTracks, setVideoTracks] = useState([]);
   const [audioTracks, setAudioTracks] = useState([]);
-
+  
   const videoRef = useRef();
   const audioRef = useRef();
 
@@ -41,7 +41,7 @@ const Participant = ({ participant }) => {
       participant.removeAllListeners();
     };
   }, [participant]);
-
+  
   useEffect(() => {
     const videoTrack = videoTracks[0];
     if (videoTrack) {
@@ -61,12 +61,11 @@ const Participant = ({ participant }) => {
       };
     }
   }, [audioTracks]);
-
   return (
-    <div className="participant">
+    <div className="participant" id ={participant.sid}>
       <video ref={videoRef} autoPlay={true}/>
       <audio ref={audioRef} autoPlay={true} muted={false} />
-      <p>{participant.identity}</p>
+      <p>{local?"You":participant.identity}</p>
     </div>
   );
 };
