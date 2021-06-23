@@ -7,7 +7,7 @@ const Room = ({ roomName, room, handleLogout }) => {
 
   // State Variables - list of participants in the chat
   const [participants, setParticipants] = useState([]);
-  const [addOthers, setAddOthers] = useState(true);
+  const [prevDominantSpeaker, setDominantSpeaker] = useState(0);
 
   useEffect(() => {
 
@@ -34,12 +34,22 @@ const Room = ({ roomName, room, handleLogout }) => {
     };
   }, [room]);
 
+  room.on('dominantSpeakerChanged', (participant) => {
+    if(prevDominantSpeaker !== 0){
+      document.getElementById(prevDominantSpeaker).setAttribute('class', 'participant');
+      console.log(prevDominantSpeaker);
+    }
+    console.log(document.getElementById(participant.sid))
+    document.getElementById(participant.sid).setAttribute('class', 'dominant_speaker');
+    setDominantSpeaker(participant.sid);
+    console.log(prevDominantSpeaker);
+  });
+
   const remoteParticipants = participants.map((participant) => (
     <Participant key={participant.sid} participant={participant} />
   ));
 
   document.title = "ROOM - " + roomName;
-  
   return (
     <div className="room">
       <div className="local-participant" style = {{display:'flex', flexWrap:'wrap'}}>
@@ -47,6 +57,7 @@ const Room = ({ roomName, room, handleLogout }) => {
           <Participant
             key={room.localParticipant.sid}
             participant={room.localParticipant}
+            local = {true}
           />
         ) : (
           ""
