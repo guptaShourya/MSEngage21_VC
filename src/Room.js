@@ -34,20 +34,18 @@ const Room = ({ roomName, room, handleLogout }) => {
     };
   }, [room]);
 
-  room.on('dominantSpeakerChanged', (participant) => {
-    if(prevDominantSpeaker !== 0){
-      document.getElementById(prevDominantSpeaker).setAttribute('class', 'participant');
-      console.log(prevDominantSpeaker);
-    }
-    console.log(document.getElementById(participant.sid))
-    document.getElementById(participant.sid).setAttribute('class', 'dominant_speaker');
-    setDominantSpeaker(participant.sid);
-    console.log(prevDominantSpeaker);
-  });
-
   const remoteParticipants = participants.map((participant) => (
     <Participant key={participant.sid} participant={participant} />
   ));
+
+  room.on('dominantSpeakerChanged', (participant) => {
+    if(prevDominantSpeaker !== 0){
+      document.getElementById(prevDominantSpeaker).setAttribute('class', 'participant');
+    }
+    document.getElementById(participant.sid).setAttribute('class', 'dominant_speaker');
+    setDominantSpeaker(participant.sid);
+    setTimeout(()=>{document.getElementById(participant.sid).setAttribute('class', 'participant');}, 3000)
+  });
 
   document.title = "ROOM - " + roomName;
   return (
