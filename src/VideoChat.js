@@ -14,7 +14,7 @@ const VideoChat = () => {
   const [roomName, setRoomName] = useState("");
   const [room, setRoom] = useState(null);
   const [connecting, setConnecting] = useState(false);
-
+  
   // Methods to update Username & Roomname when changed
   const handleUsernameChange = useCallback((event) => {
     setUsername(event.target.value);
@@ -87,6 +87,7 @@ const VideoChat = () => {
       };
     }
   }, [room, handleLogout]);
+
   let render;
 
   // if room already exists then render Room.js
