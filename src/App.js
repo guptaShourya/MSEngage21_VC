@@ -1,8 +1,6 @@
 import React from 'react';
 import './App.css';
 import VideoChat from './VideoChat';
-import RoomHeader from './RoomHeader';
-
 
 const App = () => {
   return (
