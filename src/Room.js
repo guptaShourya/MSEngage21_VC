@@ -50,6 +50,7 @@ const Room = ({ roomName, room, handleLogout }) => {
   document.title = "ROOM - " + roomName;
   return (
     <div className="room">
+      <div id = 'screen'></div>
       <div className="local-participant" style = {{display:'flex', flexWrap:'wrap'}}>
         {room ? (
           <Participant
