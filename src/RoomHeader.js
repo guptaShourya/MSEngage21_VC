@@ -8,8 +8,10 @@ import GroupAddIcon from '@material-ui/icons/GroupAddTwoTone';
 import Dialog from '@material-ui/core/Dialog'
 import DialogTitle from '@material-ui/core/DialogTitle'
 import Button from '@material-ui/core/Button';
+import ScreenShareTwoToneIcon from '@material-ui/icons/ScreenShareTwoTone';
+import CancelPresentationTwoToneIcon from '@material-ui/icons/CancelPresentationTwoTone';
 
-const RoomHeader = ({handleLogout, room, roomName}) => {
+const RoomHeader = ({handleLogout, room, roomName, test}) => {
 
     // state variables - used to swtich microphone and camera on/off
     const [isMic, setIsMic] = useState(true);
@@ -17,6 +19,11 @@ const RoomHeader = ({handleLogout, room, roomName}) => {
 
     // state variable - to open/close dialog box
     const [isOpen, setOpen] = useState(false); 
+
+    // state variable - to toggle screen share
+    const [isScreenShared, setIsScreenShared] = useState(false);
+    var screenTrack;
+    
 
     // method to handle switch on/off
     const switchOnOff = (media) => (event) => {
@@ -63,6 +70,52 @@ const RoomHeader = ({handleLogout, room, roomName}) => {
       setOpen(false);
     };
 
+    // removes any existing screen share
+    const removeAllChildren = () => {
+      let screen_tag = document.getElementById('screen');
+        while(screen_tag.lastElementChild){
+          screen_tag.removeChild(screen_tag.lastElementChild);
+        }
+    }
+
+    // publishes screen to all participants
+    room.on("trackSubscribed", (track)=>{
+      if(track.name === 'screen_5139'){
+        removeAllChildren();
+        let screen_tag = document.getElementById('screen')
+        screen_tag.appendChild(track.attach());
+      }
+    });
+
+    // unpublishes screen from all participants
+    room.on("trackUnsubscribed", (track)=>{
+      if(track.name === 'screen_5139'){
+        removeAllChildren();
+      }
+    });
+
+    // method - enables/disables screen sharing
+    const handleShareScreen = async () => {
+    if(!isScreenShared){
+      const { LocalVideoTrack } = require('twilio-video');
+      const stream = await navigator.mediaDevices.getDisplayMedia(); // open prompt to select the screen to share
+      screenTrack = new LocalVideoTrack(stream.getTracks()[0], {name : "screen_5139"});
+      // publish the stream to room
+      room.localParticipant.publishTrack(screenTrack).then((track)=>{
+        document.getElementById('screen').appendChild(track.track.attach());
+      });
+    }else{
+      // select the video track on which screen is present
+      Array.from(room.localParticipant.videoTracks.values()).map(publication => publication.track)[1].stop();
+      // unpublish track
+      room.localParticipant.unpublishTrack(Array.from(room.localParticipant.videoTracks.values())
+      .map(publication => publication.track)[1]);
+
+      removeAllChildren();
+    }
+    setIsScreenShared(!isScreenShared);
+  }
+  
     return(
       <div id = "toolbar">
 
@@ -89,7 +142,6 @@ const RoomHeader = ({handleLogout, room, roomName}) => {
 
         {/* Add others icon */}
         <div>
-
           <button onClick = {handleOpen} style = {{background: "#00be5d"}}>
             <GroupAddIcon/>
           </button>
@@ -102,7 +154,13 @@ const RoomHeader = ({handleLogout, room, roomName}) => {
 			        Copy room name
 		        </Button>
           </Dialog>
-          
+        </div>
+
+        {/* Screen Sharing icon */}
+        <div>
+          <button onClick = {handleShareScreen}>
+            {isScreenShared?<CancelPresentationTwoToneIcon/>:<ScreenShareTwoToneIcon/>}
+          </button>
         </div>
 
       </div>
