@@ -95,7 +95,6 @@ const VideoChat = () => {
     render = (
       <>
       <Room roomName={roomName} room={room} handleLogout={handleLogout} />
-      <div id = 'screen'></div>
       <footer>
         <RoomHeader handleLogout = {handleLogout} room = {room} roomName = {roomName}/>
       </footer>
