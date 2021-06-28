@@ -140,6 +140,9 @@ button:hover {
   border-radius: 6px;
   display: inline-block;
   margin: 10px;
+}
+
+.dominant_speaker :first-child{
   transform: scaleX(-1);
 }
 
