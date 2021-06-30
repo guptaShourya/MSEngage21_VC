@@ -61,7 +61,9 @@ const VideoChat = () => {
     setRoom((prevRoom) => {
       if (prevRoom) {
         prevRoom.localParticipant.tracks.forEach((trackPub) => {
-          trackPub.track.stop();
+          if(trackPub.track.kind !== 'data'){
+            trackPub.track.stop();
+          }
         });
         prevRoom.disconnect();
       }
