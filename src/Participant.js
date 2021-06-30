@@ -21,6 +21,24 @@ const Participant = ({ participant, local }) => {
         setVideoTracks((videoTracks) => [...videoTracks, track]);
       } else if (track.kind === "audio") {
         setAudioTracks((audioTracks) => [...audioTracks, track]);
+      } else if (track.kind === 'data'){
+          track.on('message', data => {
+            const node = document.createElement('div');
+            let author = JSON.parse(data)['author'];
+            let message = JSON.parse(data)['data'];
+            const authorspan = document.createElement('span');
+            authorspan.style.fontWeight = 'bold';
+            const authornode = document.createTextNode(author + ": ");
+            authorspan.appendChild(authornode);
+            const textnode = document.createTextNode(message);
+            const textspan = document.createElement('span');
+            textspan.appendChild(textnode);
+            const wrapper = document.createElement('span');
+            wrapper.appendChild(authorspan);
+            wrapper.appendChild(textspan);
+            node.appendChild(wrapper);
+            document.getElementById('text-area').appendChild(node);
+        });
       }
     };
 
@@ -29,7 +47,7 @@ const Participant = ({ participant, local }) => {
         setVideoTracks((videoTracks) => videoTracks.filter((v) => v !== track));
       } else if (track.kind === "audio") {
         setAudioTracks((audioTracks) => audioTracks.filter((a) => a !== track));
-      }
+      } 
     };
 
     participant.on("trackSubscribed", trackSubscribed);
