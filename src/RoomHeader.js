@@ -10,6 +10,7 @@ import DialogTitle from '@material-ui/core/DialogTitle'
 import Button from '@material-ui/core/Button';
 import ScreenShareTwoToneIcon from '@material-ui/icons/ScreenShareTwoTone';
 import CancelPresentationTwoToneIcon from '@material-ui/icons/CancelPresentationTwoTone';
+import TextChat from './TextChat';
 
 const RoomHeader = ({handleLogout, room, roomName, test}) => {
 
@@ -120,31 +121,31 @@ const RoomHeader = ({handleLogout, room, roomName, test}) => {
       <div id = "toolbar">
 
         {/* video camera icon */}
-        <div>
+        <div className = 'toolbarDiv'>
           <button onClick = {switchOnOff("Cam")}>
           {isCamera?<VideocamIcon/>:<VideocamOffIcon/>}
           </button>
         </div>
 
         {/* microphone icon */}
-        <div>
+        <div className = 'toolbarDiv'>
           <button onClick = {switchOnOff("Mic")}>
             {isMic?<MicIcon/>:<MicOffIcon/>}
           </button>
         </div>
 
         {/* End call icon */}
-        <div>
+        <div className = 'toolbarDiv'>
           <button onClick = {handleLogout} style = {{backgroundColor:"#ff484e"}}>
             <CallEndIcon/>
           </button>
         </div>
 
         {/* Add others icon */}
-        <div>
-          <button onClick = {handleOpen} style = {{background: "#00be5d"}}>
-            <GroupAddIcon/>
-          </button>
+          <div className = 'toolbarDiv'>
+            <button onClick = {handleOpen} style = {{background: "#00be5d"}}>
+              <GroupAddIcon/>
+            </button>
 
           {/* Dialog box */}
           <Dialog open = {isOpen} onClose = {handleClose} fullWidth = {true} maxWidth = {"sm"}>
@@ -157,11 +158,13 @@ const RoomHeader = ({handleLogout, room, roomName, test}) => {
         </div>
 
         {/* Screen Sharing icon */}
-        <div>
+        <div className = 'toolbarDiv'>
           <button onClick = {handleShareScreen}>
             {isScreenShared?<CancelPresentationTwoToneIcon/>:<ScreenShareTwoToneIcon/>}
           </button>
         </div>
+        <TextChat room = {room}/>
+        {/* <TextChat></TextChat> */}
 
       </div>
   );
