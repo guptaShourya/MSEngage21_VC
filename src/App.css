@@ -187,11 +187,11 @@ footer a {
   left: 40%;
 }
 
-#toolbar div{
+.toolbarDiv{
   margin-right: 10%;
 }
 
-#toolbar button{
+.toolbarDiv button{
   background: #21242c;
   border: #383b43;
   border-style: solid;
