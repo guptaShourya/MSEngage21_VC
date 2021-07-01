@@ -120,7 +120,7 @@ button:hover {
 }
 .participant {
   background: #333e5a;
-  padding: 10px;
+  padding: 5px;
   max-height: 50vh;
   min-height: 25vh;
   max-width: 50vh;
@@ -153,7 +153,7 @@ button:hover {
   text-align: center;
   /* padding-bottom: 0.5em; */
   color: #fff;
-  font-size: 1.5rem;
+  font-size: 1rem;
 }
 
 video {
@@ -197,4 +197,17 @@ footer a {
   border-style: solid;
   border-width: 1px;
   font-size: 120%;
+}
+
+.overlayName {
+  position: absolute;
+  bottom: 16px;
+  left: 14px;
+  border-radius: 6px;
+  margin: 0;
+  padding: 0.5em 1em 0.5em 0.2em;
+  background: rgba(242, 47, 70, 0.8);
+  color: #fff;
+  font-size: 16px;
+  line-height: 1;
 }
