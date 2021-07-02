@@ -11,6 +11,7 @@ import Button from '@material-ui/core/Button';
 import ScreenShareTwoToneIcon from '@material-ui/icons/ScreenShareTwoTone';
 import CancelPresentationTwoToneIcon from '@material-ui/icons/CancelPresentationTwoTone';
 import TextChat from './TextChat';
+import Blur from './Blur';
 
 const RoomHeader = ({handleLogout, room, roomName, test}) => {
 
@@ -24,7 +25,6 @@ const RoomHeader = ({handleLogout, room, roomName, test}) => {
     // state variable - to toggle screen share
     const [isScreenShared, setIsScreenShared] = useState(false);
     var screenTrack;
-    
 
     // method to handle switch on/off
     const switchOnOff = (media) => (event) => {
@@ -166,6 +166,7 @@ const RoomHeader = ({handleLogout, room, roomName, test}) => {
         <TextChat room = {room}/>
         {/* <TextChat></TextChat> */}
 
+        <Blur participant = {room.localParticipant}/>
       </div>
   );
 }

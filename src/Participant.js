@@ -1,4 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
+import twilio from 'twilio';
+import * as VideoProcessors from '@twilio/video-processors';
+import { GaussianBlurBackgroundProcessor } from '@twilio/video-processors';
+
 
 const Participant = ({ participant, local }) => {
   const [videoTracks, setVideoTracks] = useState([]);
@@ -64,6 +68,12 @@ const Participant = ({ participant, local }) => {
     const videoTrack = videoTracks[0];
     if (videoTrack) {
       videoTrack.attach(videoRef.current);
+      // const blurBackground = new GaussianBlurBackgroundProcessor({
+      //   assetsPath: 'assets'
+      // });
+      // blurBackground.loadModel().then(() => {
+      //     videoTrack.addProcessor(blurBackground);
+      // });
       return () => {
         videoTrack.detach();
       };

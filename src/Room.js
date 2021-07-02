@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Participant from "./Participant";
+import Tooltip from '@material-ui/core/Tooltip';
 
 // Rooms.js - connects to Twilio video services
 
@@ -47,11 +48,34 @@ const Room = ({ roomName, room, handleLogout }) => {
     setTimeout(()=>{document.getElementById(participant.sid).setAttribute('class', 'participant');}, 3000)
   });
 
+  const zoomTrack = (event) => {
+    // console.log(event.target);
+    const trackElement = event.target;
+    if(trackElement.childNodes.length === 0){
+      if (!trackElement.classList.contains('screenZoomed')) {
+        // zoom in
+        trackElement.classList.add('screenZoomed');
+        let container = document.getElementById('participants');
+        container.classList.add('participantHidden');
+        document.getElementById('toolbar').classList.add('toolbarMin');
+      }
+      else {
+        // zoom out
+        trackElement.classList.remove('screenZoomed');
+        let container = document.getElementById('participants');
+        container.classList.remove('participantHidden');
+        document.getElementById('toolbar').classList.remove('toolbarMin');
+      }
+    }
+  }
+
   document.title = "ROOM - " + roomName;
   return (
     <div className="room">
-      <div id = 'screen'></div>
-      <div className="local-participant" style = {{display:'flex', flexWrap:'wrap'}}>
+      <Tooltip title = 'Click screen to toogle full screen'>
+        <div id = 'screen' onClick = {zoomTrack}></div>
+      </Tooltip>
+      <div className="local-participant" style = {{display:'flex', flexWrap:'wrap'}} id = 'participants'>
         {room ? (
           <Participant
             key={room.localParticipant.sid}

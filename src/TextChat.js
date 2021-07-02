@@ -99,7 +99,7 @@ const TextChat = ({room}) => {
 
 
     return (
-        <div>
+        <div className = 'toolbarDiv'>
             <button
                 onClick={handleClick}
                 style={{background: "#21242c",
