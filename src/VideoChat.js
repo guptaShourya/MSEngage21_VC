@@ -2,7 +2,7 @@ import React, { useState, useCallback, useEffect } from "react";
 import Video from "twilio-video";
 import Lobby from "./Lobby";
 import Room from "./Room";
-import RoomHeader from "./RoomHeader";
+import RoomHeader from "./toolbar/RoomHeader";
 
 // child to App.js
 // VideoChat.js handles data about the chat
@@ -10,25 +10,29 @@ import RoomHeader from "./RoomHeader";
 const VideoChat = () => {
 
   // state variables
-  const [username, setUsername] = useState("");
-  const [roomName, setRoomName] = useState("");
-  const [room, setRoom] = useState(null);
-  const [connecting, setConnecting] = useState(false);
+  const [username, setUsername] = useState(""); //username
+  const [roomName, setRoomName] = useState(""); //roomname
+  const [room, setRoom] = useState(null); //room details
+  const [connecting, setConnecting] = useState(false); //current status
   
-  // Methods to update Username & Roomname when changed
+  //update username on change
   const handleUsernameChange = useCallback((event) => {
     setUsername(event.target.value);
   }, []);
+
+  // update room name on change
   const handleRoomNameChange = useCallback((event) => {
     setRoomName(event.target.value);
   }, []);
 
-      // Method to send Username & Roomname to the server
+  // Method to send Username & Roomname to the server
   // And recieve an access token
   const handleSubmit = useCallback(
     async (event) => {
-      event.preventDefault(); //prevents the browser from reload when submitting the form
-      setConnecting(true); // changes the button text to connecting
+
+      event.preventDefault(); 
+      setConnecting(true); // connecting to Twilio API
+
       const data = await fetch("/video/token", {
         method: "POST",
         body: JSON.stringify({
@@ -40,10 +44,10 @@ const VideoChat = () => {
         },
       }).then((res) => res.json());
 
-      // connects to the room using twilio API
+      // connect to the room using twilio API
       Video.connect(data.token, {
         name: roomName,
-        dominantSpeaker : true
+        dominantSpeaker : true //enable dominant speaker feature
       }).then((room) => {
           setConnecting(false);
           setRoom(room);
@@ -60,11 +64,15 @@ const VideoChat = () => {
     document.title = "Microsoft Engage 2021"
     setRoom((prevRoom) => {
       if (prevRoom) {
+
+        // stop media tracks before disconnecting from room
         prevRoom.localParticipant.tracks.forEach((trackPub) => {
           if(trackPub.track.kind !== 'data'){
             trackPub.track.stop();
           }
         });
+        
+        // disconnect from room
         prevRoom.disconnect();
       }
       return null;

@@ -1,73 +1,60 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Participant from "./Participant";
 import Tooltip from '@material-ui/core/Tooltip';
+import zoomTrack from "./utils/ZoomScreen";
 
 // Rooms.js - connects to Twilio video services
 
-const Room = ({ roomName, room, handleLogout }) => {
+const Room = ({ roomName, room }) => {
 
-  // State Variables - list of participants in the chat
-  const [participants, setParticipants] = useState([]);
-  const [prevDominantSpeaker, setDominantSpeaker] = useState(0);
+  // State Variables
+  const [participants, setParticipants] = useState([]); //participants in meeting
+  const [prevDominantSpeaker, setDominantSpeaker] = useState(0); // previous dominant speaker
 
   useEffect(() => {
 
-    // Methods to connect & disconnect a participant
+    // update list when a participant joins
     const participantConnected = (participant) => {
       setParticipants((prevParticipants) => [...prevParticipants, participant]);
     };
 
+    // update list when a participant leaves
     const participantDisconnected = (participant) => {
       setParticipants((prevParticipants) =>
         prevParticipants.filter((p) => p !== participant)
       );
     };
 
-    // Connects / Disconnect once the component is rendered
+    // event listeners for participant joined/left
     room.on("participantConnected", participantConnected);
     room.on("participantDisconnected", participantDisconnected);
     room.participants.forEach(participantConnected);
 
-    // Remove the eventlisteners once unmounted
+    // remove the event listeners once unmounted
     return () => {
       room.off("participantConnected", participantConnected);
       room.off("participantDisconnected", participantDisconnected);
     };
   }, [room]);
 
+  // get remote participants
   const remoteParticipants = participants.map((participant) => (
     <Participant key={participant.sid} participant={participant} />
   ));
 
-  room.on('dominantSpeakerChanged', (participant) => {
-    if(prevDominantSpeaker !== 0){
-      document.getElementById(prevDominantSpeaker).setAttribute('class', 'participant');
-    }
-    document.getElementById(participant.sid).setAttribute('class', 'dominant_speaker');
-    setDominantSpeaker(participant.sid);
-    setTimeout(()=>{document.getElementById(participant.sid).setAttribute('class', 'participant');}, 3000)
-  });
-
-  const zoomTrack = (event) => {
-    // console.log(event.target);
-    const trackElement = event.target;
-    if(trackElement.childNodes.length === 0){
-      if (!trackElement.classList.contains('screenZoomed')) {
-        // zoom in
-        trackElement.classList.add('screenZoomed');
-        let container = document.getElementById('participants');
-        container.classList.add('participantHidden');
-        document.getElementById('toolbar').classList.add('toolbarMin');
+  useCallback(() => {
+    // dominant speaker changed
+    room.on('dominantSpeakerChanged', (participant) => {
+      // reset previous dominant speaker's (if any) styling
+      if(prevDominantSpeaker !== 0){
+        document.getElementById(prevDominantSpeaker).setAttribute('class', 'participant'); 
       }
-      else {
-        // zoom out
-        trackElement.classList.remove('screenZoomed');
-        let container = document.getElementById('participants');
-        container.classList.remove('participantHidden');
-        document.getElementById('toolbar').classList.remove('toolbarMin');
-      }
-    }
-  }
+      // set styling of new dominant speaker
+      document.getElementById(participant.sid).setAttribute('class', 'dominant_speaker');
+      setDominantSpeaker(participant.sid);
+      setTimeout(()=>{document.getElementById(participant.sid).setAttribute('class', 'participant');}, 3000)
+    });
+  }, [prevDominantSpeaker]);
 
   document.title = "ROOM - " + roomName;
   return (
@@ -75,7 +62,7 @@ const Room = ({ roomName, room, handleLogout }) => {
       <Tooltip title = 'Click screen to toogle full screen'>
         <div id = 'screen' onClick = {zoomTrack}></div>
       </Tooltip>
-      <div className="local-participant" style = {{display:'flex', flexWrap:'wrap'}} id = 'participants'>
+      <div className="local-participant"  id = 'participants'>
         {room ? (
           <Participant
             key={room.localParticipant.sid}

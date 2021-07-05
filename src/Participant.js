@@ -1,16 +1,20 @@
 import React, { useState, useEffect, useRef } from "react";
-import twilio from 'twilio';
-import * as VideoProcessors from '@twilio/video-processors';
-import { GaussianBlurBackgroundProcessor } from '@twilio/video-processors';
-
+import displayMessage from "./utils/Message";
+import FindNewWidth from "./utils/GridLayout"
 
 const Participant = ({ participant, local }) => {
+  // video and audio tracks
   const [videoTracks, setVideoTracks] = useState([]);
   const [audioTracks, setAudioTracks] = useState([]);
-  
   const videoRef = useRef();
   const audioRef = useRef();
 
+  useEffect(()=>{
+    // resize videos according to number of participants
+    FindNewWidth();
+  });
+
+// set up media tracks
   const trackpubsToTracks = (trackMap) =>
     Array.from(trackMap.values())
       .map((publication) => publication.track)
@@ -20,32 +24,22 @@ const Participant = ({ participant, local }) => {
     setVideoTracks(trackpubsToTracks(participant.videoTracks));
     setAudioTracks(trackpubsToTracks(participant.audioTracks));
 
+    // subscribe to tracks
     const trackSubscribed = (track) => {
       if (track.kind === "video") {
         setVideoTracks((videoTracks) => [...videoTracks, track]);
       } else if (track.kind === "audio") {
         setAudioTracks((audioTracks) => [...audioTracks, track]);
       } else if (track.kind === 'data'){
+        // recieve a message
           track.on('message', data => {
-            const node = document.createElement('div');
             let author = JSON.parse(data)['author'];
             let message = JSON.parse(data)['data'];
-            const authorspan = document.createElement('span');
-            authorspan.style.fontWeight = 'bold';
-            const authornode = document.createTextNode(author + ": ");
-            authorspan.appendChild(authornode);
-            const textnode = document.createTextNode(message);
-            const textspan = document.createElement('span');
-            textspan.appendChild(textnode);
-            const wrapper = document.createElement('span');
-            wrapper.appendChild(authorspan);
-            wrapper.appendChild(textspan);
-            node.appendChild(wrapper);
-            document.getElementById('text-area').appendChild(node);
+            displayMessage(author, message);
         });
       }
     };
-
+    // unsubscribe tracks
     const trackUnsubscribed = (track) => {
       if (track.kind === "video") {
         setVideoTracks((videoTracks) => videoTracks.filter((v) => v !== track));
@@ -68,12 +62,6 @@ const Participant = ({ participant, local }) => {
     const videoTrack = videoTracks[0];
     if (videoTrack) {
       videoTrack.attach(videoRef.current);
-      // const blurBackground = new GaussianBlurBackgroundProcessor({
-      //   assetsPath: 'assets'
-      // });
-      // blurBackground.loadModel().then(() => {
-      //     videoTrack.addProcessor(blurBackground);
-      // });
       return () => {
         videoTrack.detach();
       };
@@ -91,7 +79,9 @@ const Participant = ({ participant, local }) => {
   }, [audioTracks]);
   return (
     <div className="participant" id ={participant.sid}>
-      <video ref={videoRef} autoPlay={true}/>
+      <div className = 'video-container'>
+        <video ref={videoRef} autoPlay={true}/>
+      </div>
       <audio ref={audioRef} autoPlay={true} muted={false} />
       <p className = 'overlayName'>{local?"You":participant.identity}</p>
     </div>
