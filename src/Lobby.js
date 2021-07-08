@@ -1,6 +1,6 @@
 import React from "react";
 
-// Lobby component - Handles the sign up form 
+// Lobby component - Handles the login in form 
 const Lobby = ({
   username,
   handleUsernameChange,
@@ -9,9 +9,10 @@ const Lobby = ({
   handleSubmit,
   connecting,
 }) => {
+  document.getElementsByTagName("body")[0].style.background =  "rgb(63, 81, 181)";
   return (
-    <form onSubmit={handleSubmit}>
-      <h2>Join a Meeting</h2>
+    <form onSubmit={handleSubmit} id = 'Login-form'>
+      <h2>Join a Room</h2>
       {/* Input for Username */}
       <div>
         <label htmlFor="name">Name:</label>
@@ -42,7 +43,6 @@ const Lobby = ({
       <button type="submit" disabled={connecting}>
         {connecting ? <div><i className="fa fa-spinner fa-spin"></i> <span>Connecting</span></div> :"Connect"}
       </button>
-
     </form>
   );
 };

@@ -1,22 +1,29 @@
 import React, { useState, useCallback, useEffect } from "react";
 import Video from "twilio-video";
-import { Grid } from "@material-ui/core";
+import Lobby from "./Lobby";
 import Room from "./Room";
 import RoomHeader from "./toolbar/RoomHeader";
-import DisplayPreview from "./DisplayPreview";
+
 // child to App.js
 // VideoChat.js handles data about the chat
 
-const VideoChat = (props) => {
+const VideoChat = () => {
 
   // state variables
-  const username = props.username;
-  const roomName = props.roomName;
+  const [username, setUsername] = useState(""); //username
+  const [roomName, setRoomName] = useState(""); //roomname
   const [room, setRoom] = useState(null); //room details
   const [connecting, setConnecting] = useState(false); //current status
-  const [disconnect, setDisconnect] = useState(false);
-  const [video, setVideo] = useState(true);
-  const [audio, setAudio] = useState(true);
+  
+  //update username on change
+  const handleUsernameChange = useCallback((event) => {
+    setUsername(event.target.value);
+  }, []);
+
+  // update room name on change
+  const handleRoomNameChange = useCallback((event) => {
+    setRoomName(event.target.value);
+  }, []);
 
   // Method to send Username & Roomname to the server
   // And recieve an access token
@@ -40,7 +47,7 @@ const VideoChat = (props) => {
       // connect to the room using twilio API
       Video.connect(data.token, {
         name: roomName,
-        dominantSpeaker : true, //enable dominant speaker feature
+        dominantSpeaker : true //enable dominant speaker feature
       }).then((room) => {
           setConnecting(false);
           setRoom(room);
@@ -53,8 +60,7 @@ const VideoChat = (props) => {
   );
 
   // Ejects the user from the room and puts in the Lobby
-  const handleLogout = useCallback((event) => {
-    event.preventDefault();
+  const handleLogout = useCallback(() => {
     document.title = "Microsoft Engage 2021"
     setRoom((prevRoom) => {
       if (prevRoom) {
@@ -63,10 +69,6 @@ const VideoChat = (props) => {
         prevRoom.localParticipant.tracks.forEach((trackPub) => {
           if(trackPub.track.kind !== 'data'){
             trackPub.track.stop();
-            if(trackPub.track.kind === 'video'){
-                console.log("CALLED");
-                trackPub.unpublish();
-            }
           }
         });
         
@@ -75,7 +77,6 @@ const VideoChat = (props) => {
       }
       return null;
     });
-    setDisconnect(true);
   }, []);
 
   useEffect(() => {
@@ -102,25 +103,25 @@ const VideoChat = (props) => {
   // if room already exists then render Room.js
   if (room) {
     render = (
-      <Grid container style = {{maxWidth : "80%", maxHeight: "100%", justifyContent: "center", marginRight: "20%"}} id = 'room'>
-      <Grid item>
-        <Room roomName={roomName} room={room} handleLogout={handleLogout} />
-      </Grid>
-      <Grid item>
-        <RoomHeader handleLogout = {handleLogout} room = {room} roomName = {roomName} 
-          messages = {props.messages} sendMessage = {props.sendMessage} audio = {audio} video = {video}/>
-      </Grid>
-      </Grid>
+      <>
+      <Room roomName={roomName} room={room} handleLogout={handleLogout} />
+      <footer>
+        <RoomHeader handleLogout = {handleLogout} room = {room} roomName = {roomName}/>
+      </footer>
+      </>
     );
-  } else if(disconnect){ 
-      props.setIsVideo(false);
-      render = <div></div>
-  }else{
-      // If room doesnt exists then render Lobby.js
+  } else { 
+    // If room doesnt exists then render Lobby.js
     render = (
-        <DisplayPreview handleSubmit = {handleSubmit} connecting = {connecting} setConnecting = {setConnecting}
-         setAudio = {setAudio} setVideo = {setVideo} audio = {audio} video = {video}/>
-      );
+      <Lobby
+        username={username}
+        roomName={roomName}
+        handleUsernameChange={handleUsernameChange}
+        handleRoomNameChange={handleRoomNameChange}
+        handleSubmit={handleSubmit}
+        connecting={connecting}
+      />
+    );
   }
   return render;
 };

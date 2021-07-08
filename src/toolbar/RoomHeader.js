@@ -7,16 +7,16 @@ import LogoutButton from './icons/LogoutButton';
 import AddOthers from './icons/AddOthers';
 import ScreenShare from './icons/ScreenShare';
 
-const RoomHeader = ({ handleLogout, room, roomName }) => {
+const RoomHeader = ({ handleLogout, room, roomName, messages, sendMessage, audio, video }) => {
 
   return (
     <div id="toolbar">
 
       {/* Camera button */}
-      <CameraButton room={room} />
+      <CameraButton room={room} video = {video} />
 
       {/* microphone button */}
-      <MicButton room={room} />
+      <MicButton room={room} audio = {audio}/>
 
       {/* Add others button */}
       <AddOthers roomName={roomName} />
@@ -28,7 +28,7 @@ const RoomHeader = ({ handleLogout, room, roomName }) => {
       <ScreenShare room={room} />
 
       {/* Text chat button*/}
-      <TextChat room={room} />
+      <TextChat room={room} messages = {messages} sendMessage = {sendMessage}/>
 
       {/* Blur Background  button*/}
       <Blur participant={room.localParticipant} />

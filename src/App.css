@@ -10,9 +10,10 @@ html {
 
 body {
   font-family: Helvetica, Arial, sans-serif;
-  color: #fcfdfe;
+  color: black;
   min-height: 100%;
-  background-color: #21242c;
+  background: rgb(51, 185, 242);
+  /* background: linear-gradient(180deg, rgba(242,243,248,1) 18%, rgba(162,175,241,1) 54%, rgba(0,212,255,1) 100%); */
 }
 
 header {
@@ -29,6 +30,7 @@ h1 {
 
 #root {
   min-height: 100vh;
+  max-height: 1000px;
 }
 
 .app {
@@ -46,10 +48,30 @@ main {
   flex-grow: 1;
 }
 
-form {
+#Login-form{
   max-width: 300px;
   margin: 0 auto;
+  font-family: revert;
+  background: whitesmoke;
+  padding: 3%;
+  border-radius: 10px;
+  width: 25%;
+  box-shadow: 10px black;
 }
+
+#Login-form button{
+  background: rgb(63, 81, 181);
+}
+/* form {
+  max-width: 300px;
+  margin: 0 auto;
+  font-family: revert;
+  background: whitesmoke;
+  padding: 3%;
+  border-radius: 10px;
+  width: 25%;
+  box-shadow: 10px black;
+} */
 
 h2 {
   font-weight: 300;
@@ -123,8 +145,10 @@ button:hover {
   padding: 5px;
   /* max-height: 50vh;
   min-height: 25vh;
-  max-width: 50vh;
+  max-width: ;
   min-width: 25vh; */
+  /* max-height: 700px;
+  max-width: 700px; */
   vertical-align: middle;
   align-self: center;
   border-radius: 6px;
@@ -163,7 +187,8 @@ button:hover {
 
 video {
   width: 100%;
-  max-width: 600px;
+  /* max-width: 700px; */
+  max-height: 900px;
   display: block;
   margin: 0 auto;
   border-radius: 6px;
@@ -173,8 +198,8 @@ video {
   transform: scaleX(-1);
 }
 
-footer {
-  background: #21242c;
+/* footer {
+   background: #21242c; 
   color: #fff;
   text-align: center;
   flex-grow: 0;
@@ -183,12 +208,12 @@ footer {
 
 footer a {
   color: #fff;
-}
+} */
 
 #toolbar{
   position: fixed;
   display: flex;
-  bottom: 8%;
+  bottom: 2%;
   left: 34%;
 }
 
@@ -197,11 +222,18 @@ footer a {
 }
 
 .toolbarDiv button{
-  background: #21242c;
-  border: #383b43;
-  border-style: solid;
-  border-width: 1px;
-  font-size: 120%;
+  background: #fff;
+  border: none;
+  display: flex;
+  border-radius: 50px;
+  box-shadow: rgb(0 0 0 / 15%) 0px 8px 15px;
+  outline: none;
+}
+
+.toolbarDiv :hover{
+  box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4) !important;
+  background-color: #fff;
+  transform: translateY(-7px);
 }
 
 .overlayName {
@@ -243,4 +275,27 @@ footer a {
   border: 1em solid rgba(242, 47, 70, 0.8);
   border-right-color: transparent;
   border-bottom-color: transparent;
+}
+
+#connect-button{
+  display: flex;
+  outline: none;
+    margin-right: 5px;
+    font-family: Roboto, sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 2.5px;
+    font-weight: 500;
+    color: rgb(0, 0, 0);
+    background-color: rgb(255, 255, 255);
+    box-shadow: rgb(0 0 0 / 10%) 0px 8px 15px;
+    transition: all 0.3s ease 0s;
+    cursor: pointer;
+    outline: none;
+}
+
+#connect-button:hover{
+  background-color:#00be5d; /*#2EE59D !important;*/
+  box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4) !important;
+  color: #fff;
+  transform: translateY(-7px);
 }

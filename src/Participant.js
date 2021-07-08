@@ -79,9 +79,7 @@ const Participant = ({ participant, local }) => {
   }, [audioTracks]);
   return (
     <div className="participant" id ={participant.sid}>
-      <div className = 'video-container'>
-        <video ref={videoRef} autoPlay={true}/>
-      </div>
+        <video ref={videoRef} autoPlay={true} className = "participant-video"/>
       <audio ref={audioRef} autoPlay={true} muted={false} />
       <p className = 'overlayName'>{local?"You":participant.identity}</p>
     </div>

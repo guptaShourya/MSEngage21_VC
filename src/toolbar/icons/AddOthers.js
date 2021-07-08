@@ -21,7 +21,7 @@ const AddOthers = ({roomName}) => {
         <div className='toolbarDiv'>
             {/* button */}
             <button onClick = {handleOpenClose} style={{ background: "#00be5d" }}>
-                <GroupAddIcon />
+                <GroupAddIcon style = {{color : 'black', margin: "10px"}}/>
             </button>
 
             {/* Dialog box */}

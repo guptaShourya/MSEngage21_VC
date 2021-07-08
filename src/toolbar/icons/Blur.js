@@ -32,7 +32,7 @@ const Blur = ({participant}) => {
     return (
         <div className = 'toolbarDiv'>
             <button onClick = {handleBlur}>
-                {isBlur?<BlurOnIcon/>:<BlurOffIcon/>}
+                {isBlur?<BlurOnIcon style = {{color : 'black', margin: "10px"}}/>:<BlurOffIcon style = {{color : 'black', margin: "10px"}}/>}
             </button>
         </div>
     );

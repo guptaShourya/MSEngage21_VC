@@ -1,14 +1,12 @@
 import React from 'react';
 import './App.css';
-import VideoChat from './VideoChat';
+import Test from './test';
 
 const App = () => {
   return (
-    <div className="app">
-      <main>
+    <div className="app" id = "app">
         {/* video chat component */}
-        <VideoChat />
-      </main>
+        <Test />
     </div>
   );
 };

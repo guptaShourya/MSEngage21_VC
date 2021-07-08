@@ -28,7 +28,7 @@
   const FindNewWidth = () => {
   
         let margin = 2;
-        let scenary = document.getElementById('root');
+        let scenary = document.getElementById('room');
         let width = scenary.offsetWidth - (margin * 2);
         let height = scenary.offsetHeight - (margin * 2);
         let participants = document.getElementsByClassName('participant');

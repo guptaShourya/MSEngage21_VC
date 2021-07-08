@@ -1,16 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import switchOnOff from '../ToggleMedia';
 import MicIcon from '@material-ui/icons/MicTwoTone';
 import MicOffIcon from '@material-ui/icons/MicOffTwoTone';
 
-const MicButton = ({ room }) => {
+const MicButton = ({ room, audio}) => {
     // state of Mic
-    const [isMic, setIsMic] = useState(true);
+    let dep = 'x';
+    const [isMic, setIsMic] = useState(audio);
+    useEffect(
+        ()=>{
+            switchOnOff("Mic", !isMic, setIsMic, room);
+        }
+    , [dep]);
 
     return (
         <div className='toolbarDiv'>
             <button onClick={() => { switchOnOff("Mic", isMic, setIsMic, room) }}>
-                {isMic ? <MicIcon /> : <MicOffIcon />}
+                {isMic ? <MicIcon  style = {{color : 'black', margin: "10px"}}/> : <MicOffIcon  style = {{color : 'black', margin: "10px"}}/>}
             </button>
         </div>
     );

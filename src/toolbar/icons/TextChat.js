@@ -1,13 +1,17 @@
 import React, { useCallback, useState } from 'react';
 import Drawer from '@material-ui/core/Drawer';
 import IconButton from '@material-ui/core/IconButton';
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import ChatIcon from '@material-ui/icons/ChatTwoTone';
 import ChatBubbleIcon from '@material-ui/icons/ChatBubbleTwoTone';
-import TextField from '@material-ui/core/TextField';
-import displayMessage from '../../utils/Message';
-const { LocalDataTrack } = require('twilio-video');
+import { Send } from "@material-ui/icons";
+import ChatItem from '../../ChatItem';
+import {
+  Grid,
+  List,
+  TextField,
+} from "@material-ui/core";
+
 
 const drawerWidth = 0;
 
@@ -17,14 +21,12 @@ const useStyles = makeStyles((theme) => ({
     flexShrink: 0,
   },
   drawerPaper: {
-    width: 240,
-    marginRight: 0,
-    borderWidth: 'thick',
-    borderStyle: 'solid',
-    borderColor: 'aquamarine',
+    width: "20%",
     borderRadius: '10px',
-    height: '88%',
-    position: 'fixed'
+    height: '97%',
+    position: 'fixed',
+    marginRight: "10px",
+    marginTop: "10px"
   },
   drawerHeader: {
     display: 'flex',
@@ -44,74 +46,43 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-const TextChat = ({ room }) => {
+const TextChat = ({ room, messages, sendMessage }) => {
 
   const classes = useStyles();
-  const theme = useTheme();
   const [isOpen, setIsOpen] = useState(false);
+  console.log(sendMessage);
 
   // text message
-  const [message, setMessage] = useState('');
+  const [text, setText] = useState('');
 
-  const dataTrack = new LocalDataTrack();
+  // const dataTrack = new LocalDataTrack();
 
   const handleClick = () => {
     setIsOpen(!isOpen);
   }
-
-  // publish data track for in - call text chat
-  room.localParticipant.publishTrack(dataTrack).catch(() => { });
-
-  const dataTrackPublished = {};
-
-  dataTrackPublished.promise = new Promise((resolve, reject) => {
-    dataTrackPublished.resolve = resolve;
-    dataTrackPublished.reject = reject;
-  });
-
-  room.localParticipant.on('trackPublished', publication => {
-    if (publication.track === dataTrack) {
-      dataTrackPublished.resolve();
-    }
-  });
-
-  room.localParticipant.on('trackPublicationFailed', (error, track) => {
-    if (track === dataTrack) {
-      dataTrackPublished.reject(error);
-    }
-  });
-
-  function sendMessage(event) {
-    event.preventDefault();
-    // display message in chat area
-    displayMessage('You', message);
-    setMessage('');
-    // send message over to other participants
-    dataTrackPublished.promise.then(() => dataTrack.send(JSON.stringify({
-      author: room.localParticipant.identity,
-      data: message
-    })));
-  }
-
-  const handleMessageChange = useCallback((event) => {
-    setMessage(event.target.value);
+  
+  const handleTextChange = useCallback((event) => {
+    setText(event.target.value);
   }
     , []);
 
-
+  const handleSend = ()=>{
+    sendMessage(text);
+    setText('');
+  }
   return (
     <div className='toolbarDiv'>
       <button
         onClick={handleClick}
-        style={{
-          background: "#21242c",
-          border: "#383b43",
-          borderStyle: "solid",
-          borderWidth: "1px",
-          padding: "0.45em"
-        }}
+        // style={{
+        //   background: "#21242c",
+        //   border: "#383b43",
+        //   borderStyle: "solid",
+        //   borderWidth: "1px",
+        //   padding: "0.45em"
+        // }}
       >
-        {isOpen ? <ChatBubbleIcon /> : <ChatIcon />}
+        {isOpen ? <ChatBubbleIcon  style = {{color : 'black', margin: "10px"}}/> : <ChatIcon  style = {{color : 'black', margin: "10px"}}/>}
       </button>
       <Drawer
         className={classes.drawer}
@@ -122,26 +93,61 @@ const TextChat = ({ room }) => {
           paper: classes.drawerPaper,
         }}
       >
-        <div className={classes.drawerHeader} style={{ marginRight: '0%' }}>
-          <IconButton onClick={handleClick}>
-            <ChevronRightIcon />
-          </IconButton>
-          <p>In call messages</p>
+        {/* <div className={classes.drawerHeader} style={{ marginRight: '0%', display: "flex", position: "fixed"}}>
+          <p>Chat</p>
+        </div> */}
+        <div>
+        <List dense={true}>
+              {messages &&
+                messages.map((message) => (
+                  <ChatItem
+                    key={message.index}
+                    message={message}
+                    email={room.localParticipant.identity}
+                  />
+                ))}
+            </List>
         </div>
-        <div id='text-area' style={{ textAlign: 'left', fontSize: '1rem' }}></div>
-        <form onSubmit={sendMessage} style=
-          {{
-            display: 'inline-block', position: 'fixed', bottom: '4.6%',
-            width: '14.4em', background: '#fff', color: 'black', borderRadius: '6px'
-          }}>
-
-          <TextField id="message" label="Send message to everyone" variant='outlined'
-            value={message} onChange={handleMessageChange} required></TextField>
-
-        </form>
+        <Grid
+              container
+              direction="row"
+              justify="center"
+              alignItems="center"
+              style = {{padding: "10px"}}
+            >
+              <Grid item style={styles.textFieldContainer}>
+                <TextField
+                  required
+                  style={styles.textField}
+                  placeholder="Enter message"
+                  variant="outlined"
+                  multiline
+                  rows={2}
+                  value={text}
+                  onChange={handleTextChange}
+                />
+              </Grid>
+              <Grid item>
+                <IconButton
+                  style={styles.sendButton}
+                  onClick={handleSend}
+                >
+                  <Send style={styles.sendIcon} />
+                </IconButton>
+              </Grid>
+            </Grid>
       </Drawer>
     </div>
   );
 }
-
+const styles = {
+  textField: { width: "100%", borderWidth: 0, borderColor: "transparent" },
+  textFieldContainer: { flex: 1, marginRight: 12 },
+  gridItem: { paddingTop: 12, paddingBottom: 12 },
+  gridItemChatList: { overflow: "auto", height: "70vh" },
+  gridItemMessage: { marginTop: 12, marginBottom: 12 },
+  sendButton: { backgroundColor: "#3f51b5" },
+  sendIcon: { color: "white" },
+  mainGrid: { paddingTop: 100, borderWidth: 1 },
+};
 export default TextChat;

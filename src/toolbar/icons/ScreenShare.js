@@ -62,7 +62,7 @@ const ScreenShare = ({ room }) => {
     return (
         <div className='toolbarDiv'>
             <button onClick={handleShareScreen}>
-                {isScreenShared ? <CancelPresentationTwoToneIcon /> : <ScreenShareTwoToneIcon />}
+                {isScreenShared ? <CancelPresentationTwoToneIcon  style = {{color : 'black', margin: "10px"}}/> : <ScreenShareTwoToneIcon  style = {{color : 'black', margin: "10px"}}/>}
             </button>
         </div>
     );
