@@ -3,13 +3,15 @@ const config = require("./config");
 const express = require("express");
 const bodyParser = require("body-parser");
 const pino = require("express-pino-logger")();
-const { videoToken } = require("./tokens");
+const { videoToken, chatToken } = require("./tokens");
 
 const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(pino);
 app.use(express.static(path.join(__dirname, "..", "build")));
+const cors = require('cors');
+app.use(cors());
 
 const sendTokenResponse = (token, res) => {
   res.set("Content-Type", "application/json");
@@ -24,6 +26,18 @@ app.get("/api/greeting", (req, res) => {
   const name = req.query.name || "World";
   res.setHeader("Content-Type", "application/json");
   res.send(JSON.stringify({ greeting: `Hello ${name}!` }));
+});
+
+app.get('/chat/token', (req, res) => {
+  const identity = req.query.identity;
+  const token = chatToken(identity, config);
+  sendTokenResponse(token, res);
+});
+
+app.post('/chat/token', (req, res) => {
+  const identity = req.body.identity;
+  const token = chatToken(identity, config);
+  sendTokenResponse(token, res);
 });
 
 app.get("/video/token", (req, res) => {
