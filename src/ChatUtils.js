@@ -78,17 +78,28 @@ class ChatScreen extends React.Component {
       const token = await this.getToken(email);
       client.updateToken(token);
     });
-
+    this.joine(room);
     // client.on("channelJoined", async (channel) => {
     //   // getting list of all messages since this is an existing channel
     //   const messages = await channel.getMessages();
     //   this.setState({ messages: messages.items || [] });
     //   //   this.scrollToBottom();
     // });
+  }
+  joine = async (room)=>{
     try {
-      this.joine(room);
+      const {client} = this.state;
+      console.log(room);
+      const channel = await client.getChannelByUniqueName(room);
+      await this.joinChannel(channel);
+      this.setState({ channel, loading: false });
+      const messages = await channel.getMessages();
+      this.setState({ messages: messages.items || [] });
+      const channels = await client.getSubscribedChannels();
+      this.setState({channelList: channels.items || []});
     } catch {
       try {
+        const {client} = this.state;
         const channel = await client.createChannel({
           uniqueName: room,
           friendlyName: room,
@@ -100,17 +111,6 @@ class ChatScreen extends React.Component {
       }
     }
   };
-  joine = async (room)=>{
-    const {client} = this.state;
-    console.log(room);
-    const channel = await client.getChannelByUniqueName(room);
-    await this.joinChannel(channel);
-    this.setState({ channel, loading: false });
-    const messages = await channel.getMessages();
-    this.setState({ messages: messages.items || [] });
-    const channels = await client.getSubscribedChannels();
-    this.setState({channelList: channels.items || []});
-    }
 
   joinChannel = async (channel) => {
     if (channel.channelState.status !== "joined") {
