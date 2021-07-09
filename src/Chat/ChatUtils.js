@@ -115,7 +115,7 @@ class ChatScreen extends React.Component {
 // handles switching channels on click
   switchChannel = (roomName)=>{
     this.setState({room: roomName});
-    this.joine(roomName);
+    this.joinChat(roomName);
   }
   // set state (text)
   setText = (val) => {
