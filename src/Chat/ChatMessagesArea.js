@@ -54,7 +54,7 @@ const ChatMessagesArea = ({sendMessage, channel, text, setText, email, messages}
                         <Grid item>
                             <IconButton
                                 style={styles.sendButton}
-                                onClick={() => { sendMessage() }}
+                                onClick={() => { sendMessage(text); setText("") }}
                                 disabled={!channel || !text}
                             >
                                 <Send style={styles.sendIcon} />
