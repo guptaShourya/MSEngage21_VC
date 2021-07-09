@@ -5,13 +5,13 @@ import { makeStyles } from '@material-ui/core/styles';
 import ChatIcon from '@material-ui/icons/ChatTwoTone';
 import ChatBubbleIcon from '@material-ui/icons/ChatBubbleTwoTone';
 import { Send } from "@material-ui/icons";
-import ChatItem from '../../ChatItem';
+import ChatItem from '../../Chat/ChatItem';
 import {
   Grid,
   List,
   TextField,
 } from "@material-ui/core";
-
+import { Tooltip } from '@material-ui/core';
 
 const drawerWidth = 0;
 
@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
     height: '97%',
     position: 'fixed',
     marginRight: "10px",
-    marginTop: "10px"
+    marginTop: "10px",
   },
   drawerHeader: {
     display: 'flex',
@@ -49,7 +49,7 @@ const useStyles = makeStyles((theme) => ({
 const TextChat = ({ room, messages, sendMessage }) => {
 
   const classes = useStyles();
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
   console.log(sendMessage);
 
   // text message
@@ -59,6 +59,11 @@ const TextChat = ({ room, messages, sendMessage }) => {
 
   const handleClick = () => {
     setIsOpen(!isOpen);
+    if(!isOpen){
+      document.getElementById('room').style.marginRight = '20%';
+    }else{
+      document.getElementById('room').style.marginRight = '0%';
+    }
   }
   
   const handleTextChange = useCallback((event) => {
@@ -74,15 +79,10 @@ const TextChat = ({ room, messages, sendMessage }) => {
     <div className='toolbarDiv'>
       <button
         onClick={handleClick}
-        // style={{
-        //   background: "#21242c",
-        //   border: "#383b43",
-        //   borderStyle: "solid",
-        //   borderWidth: "1px",
-        //   padding: "0.45em"
-        // }}
       >
+        <Tooltip title = 'Text Chat'>
         {isOpen ? <ChatBubbleIcon  style = {{color : 'black', margin: "10px"}}/> : <ChatIcon  style = {{color : 'black', margin: "10px"}}/>}
+        </Tooltip>
       </button>
       <Drawer
         className={classes.drawer}
@@ -93,9 +93,6 @@ const TextChat = ({ room, messages, sendMessage }) => {
           paper: classes.drawerPaper,
         }}
       >
-        {/* <div className={classes.drawerHeader} style={{ marginRight: '0%', display: "flex", position: "fixed"}}>
-          <p>Chat</p>
-        </div> */}
         <div>
         <List dense={true}>
               {messages &&

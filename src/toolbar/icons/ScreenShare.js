@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import ScreenShareTwoToneIcon from '@material-ui/icons/ScreenShareTwoTone';
 import CancelPresentationTwoToneIcon from '@material-ui/icons/CancelPresentationTwoTone';
-
+import FindNewWidth from '../../utils/GridLayout';
+import { Tooltip } from '@material-ui/core';
 const ScreenShare = ({ room }) => {
 
     // to toggle screen share
@@ -20,7 +21,7 @@ const ScreenShare = ({ room }) => {
     room.on("trackSubscribed", (track) => {
         if (track.name === 'screen_5139') {
             removeAllChildren();
-            let screen_tag = document.getElementById('screen')
+            let screen_tag = document.getElementById('screen');
             screen_tag.appendChild(track.attach());
         }
     });
@@ -28,6 +29,7 @@ const ScreenShare = ({ room }) => {
     room.on("trackUnsubscribed", (track) => {
         if (track.name === 'screen_5139') {
             removeAllChildren();
+            FindNewWidth();
         }
     });
 
@@ -62,7 +64,9 @@ const ScreenShare = ({ room }) => {
     return (
         <div className='toolbarDiv'>
             <button onClick={handleShareScreen}>
+                <Tooltip title = "Toggle screen share">
                 {isScreenShared ? <CancelPresentationTwoToneIcon  style = {{color : 'black', margin: "10px"}}/> : <ScreenShareTwoToneIcon  style = {{color : 'black', margin: "10px"}}/>}
+                </Tooltip>
             </button>
         </div>
     );

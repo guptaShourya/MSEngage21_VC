@@ -6,11 +6,12 @@ import MicButton from './icons/MicButton';
 import LogoutButton from './icons/LogoutButton';
 import AddOthers from './icons/AddOthers';
 import ScreenShare from './icons/ScreenShare';
+import { Grid } from '@material-ui/core';
 
 const RoomHeader = ({ handleLogout, room, roomName, messages, sendMessage, audio, video }) => {
 
   return (
-    <div id="toolbar">
+    <Grid id="toolbar" item>
 
       {/* Camera button */}
       <CameraButton room={room} video = {video} />
@@ -33,7 +34,7 @@ const RoomHeader = ({ handleLogout, room, roomName, messages, sendMessage, audio
       {/* Blur Background  button*/}
       <Blur participant={room.localParticipant} />
 
-    </div>
+    </Grid>
   );
 }
 export default RoomHeader;

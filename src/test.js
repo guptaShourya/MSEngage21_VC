@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from "react";
 import Lobby from "./Lobby";
-import ChatScreen from "./ChatUtils";
+import ChatScreen from "./Chat/ChatUtils";
 import './App.css';
 // child to App.js
 // VideoChat.js handles data about the chat

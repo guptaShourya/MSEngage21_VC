@@ -1,12 +1,15 @@
 import React from 'react';
 import CallEndIcon from '@material-ui/icons/CallEndTwoTone';
+import { Tooltip } from '@material-ui/core';
 
-const LogoutButton = ({handleLogout}) => {
+const LogoutButton = ({ handleLogout }) => {
 
     return (
         <div className='toolbarDiv'>
             <button onClick={handleLogout} style={{ backgroundColor: "#ff484e" }}>
-                <CallEndIcon  style = {{color : 'black', margin: "10px"}}/>
+                <Tooltip title="Logout">
+                    <CallEndIcon style={{ color: 'black', margin: "10px" }} />
+                </Tooltip>
             </button>
         </div>
     );

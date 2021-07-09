@@ -1,43 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React from "react";
 import { Grid } from '@material-ui/core';
 import ToggleOffIcon from '@material-ui/icons/ToggleOff';
 import ToggleOnIcon from '@material-ui/icons/ToggleOn';
 import VideocamIcon from '@material-ui/icons/Videocam';
 import MicIcon from '@material-ui/icons/Mic';
 
-const DisplayPreview = ({ handleSubmit, connecting, setAudio, setVideo, audio, video }) => {
-    const dep = 'x';
-    const [videoTrack, setVideoTrack] = useState("");
-    document.getElementsByTagName("body")[0].style.background = "#ebecf2";
-    useEffect(() => {
-        const { createLocalVideoTrack } = require('twilio-video');
-        const localMediaContainer = document.getElementById('local-media');
-        createLocalVideoTrack().then(track => {
-            localMediaContainer.appendChild(track.attach());
-            setVideoTrack(track);
-        });
-    }, [dep]);
-
-    const handleClick = () => {
-        videoTrack.stop();
-    }
-    const toggleVideo = () => {
-        setVideo(!video);
-        if (!video) {
-            const { createLocalVideoTrack } = require('twilio-video');
-            const localMediaContainer = document.getElementById('local-media');
-            localMediaContainer.removeChild(localMediaContainer.childNodes[0]);
-            createLocalVideoTrack().then(track => {
-                localMediaContainer.appendChild(track.attach());
-                setVideoTrack(track);
-            });
-        } else {
-            videoTrack.stop();
-        }
-    }
-    const toggleAudio = () => {
-        setAudio(!audio);
-    }
+const DisplayPreview = ({toggleAudio, toggleVideo, handleClick, handleSubmit, connecting, audio, video})=> {
     return (
         <Grid container direction='column' justifyContent='center' alignItems='center'>
             <Grid item id='local-media' className='participant'>
@@ -68,6 +36,6 @@ const DisplayPreview = ({ handleSubmit, connecting, setAudio, setVideo, audio, v
                 </Grid>
             </Grid>
         </Grid>
-            );
+    )
 }
-            export default DisplayPreview;
+export default DisplayPreview;

@@ -40,19 +40,18 @@ const Room = ({ roomName, room }) => {
     <Participant key={participant.sid} participant={participant} />
   ));
 
-  useCallback(() => {
     // dominant speaker changed
     room.on('dominantSpeakerChanged', (participant) => {
       // reset previous dominant speaker's (if any) styling
+      console.log("CHANGED");
       if(prevDominantSpeaker !== 0){
-        document.getElementById(prevDominantSpeaker).setAttribute('class', 'participant'); 
+        document.getElementById(prevDominantSpeaker).style.background = "#333e5a"; 
       }
       // set styling of new dominant speaker
-      document.getElementById(participant.sid).setAttribute('class', 'dominant_speaker');
+      document.getElementById(participant.sid).style.background = "#02c460";
       setDominantSpeaker(participant.sid);
-      setTimeout(()=>{document.getElementById(participant.sid).setAttribute('class', 'participant');}, 3000)
+      setTimeout(()=>{document.getElementById(participant.sid).style.background = "#333e5a";}, 3000)
     });
-  }, [prevDominantSpeaker, room]);
 
   document.title = "ROOM - " + roomName;
   return (

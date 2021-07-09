@@ -3,7 +3,7 @@ import Video from "twilio-video";
 import { Grid } from "@material-ui/core";
 import Room from "./Room";
 import RoomHeader from "./toolbar/RoomHeader";
-import DisplayPreview from "./DisplayPreview";
+import DisplayPreviewUtil from "./DisplayPreviewUtil";
 // child to App.js
 // VideoChat.js handles data about the chat
 
@@ -102,14 +102,12 @@ const VideoChat = (props) => {
   // if room already exists then render Room.js
   if (room) {
     render = (
-      <Grid container style = {{maxWidth : "80%", maxHeight: "100%", justifyContent: "center", marginRight: "20%"}} id = 'room'>
+      <Grid container style = {{maxWidth : "80%", height: "98vh", justifyContent: "center", marginRight: "20%", alignItems: "center"}} id = 'room'>
       <Grid item>
         <Room roomName={roomName} room={room} handleLogout={handleLogout} />
       </Grid>
-      <Grid item>
         <RoomHeader handleLogout = {handleLogout} room = {room} roomName = {roomName} 
           messages = {props.messages} sendMessage = {props.sendMessage} audio = {audio} video = {video}/>
-      </Grid>
       </Grid>
     );
   } else if(disconnect){ 
@@ -118,7 +116,7 @@ const VideoChat = (props) => {
   }else{
       // If room doesnt exists then render Lobby.js
     render = (
-        <DisplayPreview handleSubmit = {handleSubmit} connecting = {connecting} setConnecting = {setConnecting}
+        <DisplayPreviewUtil handleSubmit = {handleSubmit} connecting = {connecting} setConnecting = {setConnecting}
          setAudio = {setAudio} setVideo = {setVideo} audio = {audio} video = {video}/>
       );
   }
