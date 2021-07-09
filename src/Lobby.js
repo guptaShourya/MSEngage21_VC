@@ -12,7 +12,7 @@ const Lobby = ({
   document.getElementsByTagName("body")[0].style.background =  "rgb(63, 81, 181)";
   return (
     <form onSubmit={handleSubmit} id = 'Login-form'>
-      <h2>Join a Room</h2>
+      <h2>Join a Meeting</h2>
       {/* Input for Username */}
       <div>
         <label htmlFor="name">Name:</label>
@@ -28,7 +28,7 @@ const Lobby = ({
 
       {/* Input for RoomName */}
       <div>
-        <label htmlFor="room">Room name:</label>
+        <label htmlFor="room">Meeting name:</label>
         <input
           type="text"
           id="room"

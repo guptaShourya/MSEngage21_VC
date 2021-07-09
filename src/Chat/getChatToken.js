@@ -1,3 +1,4 @@
+// retrieve token from twilio programmable chat
 const getToken = async (email) => {
     var data = await fetch("/chat/token", {
       method: "POST",

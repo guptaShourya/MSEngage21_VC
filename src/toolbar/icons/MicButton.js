@@ -11,7 +11,7 @@ const MicButton = ({ room, audio}) => {
         ()=>{
             switchOnOff("Mic", !isMic, setIsMic, room);
         }
-    , [dep]);
+    , [dep, isMic, room]);
 
     return (
         <div className='toolbarDiv'>

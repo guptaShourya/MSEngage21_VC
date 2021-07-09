@@ -1,16 +1,20 @@
 import React from "react";
 import { ListItem } from "@material-ui/core";
 
+// message item
 class ChatItem extends React.Component {
   render() {
     const { message, email } = this.props;
-    const isOwnMessage = message.author === email;
+    const isOwnMessage = message.author === email; // if sender is an auther
 
     return (
       <ListItem style={styles.listItem(isOwnMessage)}>
+        {/* author tag */}
         <div style={styles.author}>{isOwnMessage?"You":message.author}</div>
+        {/* message content */}
         <div style={styles.container(isOwnMessage)}>
           {message.body}
+          {/* time stamp */}
           <div style={styles.timestamp}>
             {new Date(message.dateCreated.toISOString()).toLocaleString()}
           </div>

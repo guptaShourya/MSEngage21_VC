@@ -15,9 +15,13 @@ const ChatComponent = ({ loading, sendMessage, channel, text, setText, email, me
             <Backdrop open={loading} style={{ zIndex: 99999 }}>
                 <CircularProgress style={{ color: "white" }} />
             </Backdrop>
-            <ChatRoomHeader handleClick={handleClick} setSubmit={setSubmit} room={room} />
+            {/* Room header */}
+            <ChatRoomHeader handleClick={handleClick} setSubmit={setSubmit} room={room} /> 
+            {/* Main component */}
             <Grid container style={{ width: "100%" }}>
+                {/* List of meetings joined */}
                 <ChannelsList channels={channels} />
+                {/* Chat message area */}
                 <ChatMessagesArea sendMessage = {sendMessage} channel = {channel} text = {text}
                  setText = {setText} email = {email} messages = {messages}/>
             </Grid>

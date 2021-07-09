@@ -8,11 +8,13 @@ import {
 import { Send } from "@material-ui/icons";
 import ChatItem from "./ChatItem";
 
+// Chat messages
 const ChatMessagesArea = ({sendMessage, channel, text, setText, email, messages}) => {
     return (
         <Grid item style={{ width: "80%", paddingRight: "15px" }}>
             <Grid container direction="column" style={styles.mainGrid}>
                 <Grid item style={styles.gridItemChatList} >
+                    {/* messages */}
                     <List dense={true}>
                         {messages &&
                             messages.map((message) => (
@@ -31,6 +33,7 @@ const ChatMessagesArea = ({sendMessage, channel, text, setText, email, messages}
                         justify="center"
                         alignItems="center"
                     >
+                        {/* text input */}
                         <Grid item style={styles.textFieldContainer}>
                             <TextField
                                 required
@@ -47,6 +50,7 @@ const ChatMessagesArea = ({sendMessage, channel, text, setText, email, messages}
                                 }
                             />
                         </Grid>
+                        {/* send button */}
                         <Grid item>
                             <IconButton
                                 style={styles.sendButton}

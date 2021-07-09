@@ -13,14 +13,12 @@ body {
   color: black;
   min-height: 100%;
   background: rgb(51, 185, 242);
-  /* background: linear-gradient(180deg, rgba(242,243,248,1) 18%, rgba(162,175,241,1) 54%, rgba(0,212,255,1) 100%); */
 }
 
 header {
   color: black;
   text-align: center;
   flex-grow: 0;
-  /* margin-bottom: 2em; */
 }
 
 h1 {
@@ -30,21 +28,17 @@ h1 {
 
 #root {
   min-height: 100vh;
-  /* max-height: 1000px; */
 }
 
 .app {
   min-height: 100vh;
   display: flex;
-  /* max-height: 100px; */
-  /* flex-direction: column; */
   align-items: center;
   justify-content: center;
 }
 
 main {
   max-height: 50%;
-  /* background: #F0F3F5; */
   flex-grow: 1;
 }
 
@@ -62,16 +56,6 @@ main {
 #Login-form button{
   background: rgb(63, 81, 181);
 }
-/* form {
-  max-width: 300px;
-  margin: 0 auto;
-  font-family: revert;
-  background: whitesmoke;
-  padding: 3%;
-  border-radius: 10px;
-  width: 25%;
-  box-shadow: 10px black;
-} */
 
 h2 {
   font-weight: 300;
@@ -110,7 +94,6 @@ button:hover {
 
 .room {
   position: relative;
-  /* max-height: 510px; */
 }
 .room button {
   position: absolute;
@@ -143,12 +126,6 @@ button:hover {
 .participant {
   background: #333e5a;
   padding: 5px;
-  /* max-height: 50vh;
-  min-height: 25vh;
-  max-width: ;
-  min-width: 25vh; */
-  /* max-height: 700px;
-  max-width: 700px; */
   vertical-align: middle;
   align-self: center;
   border-radius: 6px;
@@ -161,10 +138,6 @@ button:hover {
 .dominant_speaker {
   background: #02c460;
   padding: 5px;
-  /* max-height: 50vh;
-  min-height: 25vh;
-  max-width: 50vh;
-  min-width: 25vh; */
   vertical-align: middle;
   align-self: center;
   border-radius: 6px;
@@ -183,14 +156,12 @@ button:hover {
 }
 .participant p {
   text-align: center;
-  /* padding-bottom: 0.5em; */
   color: #fff;
   font-size: 1rem;
 }
 
 video {
   width: 100%;
-  /* max-width: 700px; */
   max-height: 900px;
   display: block;
   margin: 0 auto;
@@ -200,18 +171,6 @@ video {
 .participant video{
   transform: scaleX(-1);
 }
-
-/* footer {
-   background: #21242c; 
-  color: #fff;
-  text-align: center;
-  flex-grow: 0;
-  padding: 1em 0;
-}
-
-footer a {
-  color: #fff;
-} */
 
 #toolbar{
   position: fixed;
@@ -243,7 +202,6 @@ footer a {
   position: absolute;
   top: 5px;
   left: 5px;
-  /* border-radius: 6px; */
   margin: 0;
   padding: 0.5em 1em 0.5em 0.2em;
   background: rgba(242, 47, 70, 0.8);
@@ -297,7 +255,7 @@ footer a {
 }
 
 #connect-button:hover{
-  background-color:#00be5d; /*#2EE59D !important;*/
+  background-color:#00be5d; 
   box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4) !important;
   color: #fff;
   transform: translateY(-7px);

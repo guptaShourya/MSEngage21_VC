@@ -7,6 +7,7 @@ import getToken from "./getChatToken";
 import ChatComponent from "./ChatScreenComponent";
 const Chat = require("twilio-chat");
 
+// Chat home window component
 class ChatScreen extends React.Component {
   constructor(props) {
     super(props);
@@ -14,31 +15,32 @@ class ChatScreen extends React.Component {
     this.state = {
       text: "",
       messages: [],
-      loading: false,
-      channel: null,
-      isVideo: false,
-      channelList: [],
-      client: null,
-      email: this.props.email,
-      room: this.props.room,
+      loading: false, // to display loading icon
+      channel: null, // current channel
+      isVideo: false, //conditionally rendering
+      channelList: [], //list of meetings joined
+      client: null, 
+      email: this.props.email, // user email
+      room: this.props.room, // room name entered
     };
 
   };
   componentDidMount = async () => {
-    document.getElementsByTagName('body')[0].style.background = "rgb(255,255,255)";
+    document.getElementsByTagName('body')[0].style.background = "rgb(255,255,255)"; // change background
     const { email, room } = this.state;
-    let token = "";
+    let token = ""; 
 
     this.setState({ loading: true });
 
     try {
-      token = await getToken(email);
+      token = await getToken(email); //get authToken
     } catch {
       throw new Error("unable to get token, please reload thissss page");
     }
-    const client = await Chat.Client.create(token);
+    const client = await Chat.Client.create(token); //create client
     this.setState({client : client});
 
+    // update token if near expiry / expired
     client.on("tokenAboutToExpire", async () => {
       const token = await this.getToken(email);
       client.updateToken(token);
@@ -48,42 +50,43 @@ class ChatScreen extends React.Component {
       const token = await this.getToken(email);
       client.updateToken(token);
     });
-    this.joine(room);
+    this.joinChat(room);
   }
-  joine = async (room)=>{
-    try {
+  joinChat = async (room)=>{
+    try { //if channel exists
       const {client} = this.state;
-      const channel = await client.getChannelByUniqueName(room);
-      await this.joinChannel(channel);
+      const channel = await client.getChannelByUniqueName(room); // retrieve channel data
+      await this.joinChannel(channel); //join channel
       this.setState({ channel, loading: false });
-      const messages = await channel.getMessages();
+      const messages = await channel.getMessages(); // retrieve messages
       this.setState({ messages: messages.items || [] });
-      const channels = await client.getSubscribedChannels();
+      const channels = await client.getSubscribedChannels(); //retrieve subscribed channel
       this.setState({channelList: channels.items || []});
-    } catch {
+    } catch { //if channel doesn't exists
       try {
         const {client} = this.state;
+        // create a new channel
         const channel = await client.createChannel({
           uniqueName: room,
           friendlyName: room,
         });
-        await this.joinChannel(channel);
+        await this.joinChannel(channel); //join the channel
         this.setState({ channel, loading: false });
-        const channels = await client.getSubscribedChannels();
+        const channels = await client.getSubscribedChannels(); //retrieve subscribed channel
         this.setState({channelList: channels.items || []});
       } catch {
         throw new Error("unable to create channel, please reload this page");
       }
     }
   };
-
+  // method to join channel
   joinChannel = async (channel) => {
     if (channel.channelState.status !== "joined") {
       await channel.join();
     }
     channel.on("messageAdded", this.handleMessageAdded);
   };
-
+// update messages on addition
   handleMessageAdded = (message) => {
     const { messages } = this.state;
     this.setState(
@@ -92,16 +95,7 @@ class ChatScreen extends React.Component {
       },
     );
   };
-
-  sendMessage = () => {
-    const { text, channel } = this.state;
-    if (text && String(text).trim()) {
-      this.setState({ loading: true });
-      channel && channel.sendMessage(text);
-      this.setState({ text: "", loading: false });
-    }
-  };
-
+// send message function
   sendMessageExternal = (info) => {
     const { channel } = this.state;
     if (info && String(info).trim()) {
@@ -110,7 +104,7 @@ class ChatScreen extends React.Component {
       this.setState({ loading: false });
     }
   }
-
+  // toggle isVideo for conditional rendering
   setIsVideo = (val) => {
     this.setState({ isVideo: val });
   }
@@ -118,18 +112,19 @@ class ChatScreen extends React.Component {
   handleClick = () => {
     this.setState({ isVideo: true });
   }
-
+// handles switching channels on click
   switchChannel = (roomName)=>{
     this.setState({room: roomName});
     this.joine(roomName);
   }
+  // set state (text)
   setText = (val) => {
     this.setState({text: val});
   }
   render() {
     const { loading, text, messages, channel, isVideo, channelList, email, room} = this.state;
     const { setSubmit } = this.props;
-    const channels = [];
+    const channels = []; // list of meetings joined
     for(let i = 0; i < channelList.length; i++){
       channels.push(<Button style = {{display: "block"}} onClick = {()=>{this.switchChannel(channelList[i].friendlyName)}}>
         <ListItem>

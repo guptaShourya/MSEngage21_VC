@@ -12,7 +12,7 @@ const CameraButton = ({ room, video }) => {
         ()=>{
             switchOnOff("Cam", !isCamera, setIsCamera, room);
         }
-    , [dep]);
+    , [dep, room, isCamera]);
     return (
         <div className='toolbarDiv'>
             <button onClick={() => { switchOnOff("Cam", isCamera, setIsCamera, room) }}>

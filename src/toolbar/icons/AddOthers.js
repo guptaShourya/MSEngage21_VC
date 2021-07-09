@@ -1,9 +1,7 @@
 import React , {useState} from 'react';
 import GroupAddIcon from '@material-ui/icons/GroupAddTwoTone';
-import Dialog from '@material-ui/core/Dialog'
-import DialogTitle from '@material-ui/core/DialogTitle'
-import Button from '@material-ui/core/Button';
 import { Tooltip } from '@material-ui/core';
+import MeetingInfoDialog from './MeetingInfoDialog';
 
 const AddOthers = ({roomName}) => {
     // to open/close dialog box
@@ -26,15 +24,8 @@ const AddOthers = ({roomName}) => {
                     <GroupAddIcon style = {{color : 'black', margin: "10px"}}/>
                 </Tooltip>
             </button>
-
-            {/* Dialog box */}
-            <Dialog open={isOpen} onClose={handleOpenClose } fullWidth={true} maxWidth={"sm"}>
-                <DialogTitle>Invite others to join you</DialogTitle>
-                <p style={{ textAlign: 'center' }}>Share the room name (<q>{roomName}</q>) with others who you wish to invite</p>
-                <Button onClick={copyText} autoFocus>
-                    Copy room name
-                </Button>
-            </Dialog>
+            {/* Meeting info dialog */}
+            <MeetingInfoDialog isOpen = {isOpen} handleOpenClose = {handleOpenClose} copyText = {copyText} room = {roomName}/>
         </div>
     );
 }

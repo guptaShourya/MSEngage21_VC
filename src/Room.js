@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Participant from "./Participant";
 import Tooltip from '@material-ui/core/Tooltip';
 import zoomTrack from "./utils/ZoomScreen";
@@ -53,7 +53,7 @@ const Room = ({ roomName, room }) => {
       setTimeout(()=>{document.getElementById(participant.sid).style.background = "#333e5a";}, 3000)
     });
 
-  document.title = "ROOM - " + roomName;
+  document.title = "Meeting - " + roomName;
   return (
     <div className="room">
       <Tooltip title = 'Click screen to toogle full screen'>
