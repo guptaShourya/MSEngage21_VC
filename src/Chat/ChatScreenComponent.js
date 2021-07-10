@@ -9,14 +9,14 @@ import ChatRoomHeader from './ChatRoomHeader';
 import ChannelsList from './ChannelsList';
 import ChatMessagesArea from './ChatMessagesArea';
 
-const ChatComponent = ({ loading, sendMessage, channel, text, setText, email, messages, channels, handleClick, setSubmit, room }) => {
+const ChatComponent = ({ loading, sendMessage, channel, text, setText, email, messages, channels, handleClick, setSubmit, room, roomId }) => {
     return (
         <Container component="main" maxWidth="md" style={{ maxWidth: "none", paddingLeft: "0px", background: "rgb(242, 243, 248)" }}>
             <Backdrop open={loading} style={{ zIndex: 99999 }}>
                 <CircularProgress style={{ color: "white" }} />
             </Backdrop>
             {/* Room header */}
-            <ChatRoomHeader handleClick={handleClick} setSubmit={setSubmit} room={room} /> 
+            <ChatRoomHeader handleClick={handleClick} setSubmit={setSubmit} room={room} roomId = {roomId} /> 
             {/* Main component */}
             <Grid container style={{ width: "100%" }}>
                 {/* List of meetings joined */}

@@ -13,7 +13,7 @@ import GroupAddOutlinedIcon from '@material-ui/icons/GroupAddOutlined';
 import MeetingInfoDialog from "../toolbar/icons/MeetingInfoDialog";
 
 // Chat room header
-const ChatRoomHeader = ({handleClick, setSubmit, room})=>{
+const ChatRoomHeader = ({handleClick, setSubmit, room, roomId})=>{
   // to open/close dialog box
   const [isOpen, setOpen] = useState(false);
   const handleOpenClose = () => {
@@ -22,7 +22,7 @@ const ChatRoomHeader = ({handleClick, setSubmit, room})=>{
 
   //copy text (roomName) to clipboard and close the dialog box
   const copyText = () => {
-      navigator.clipboard.writeText(room);
+      navigator.clipboard.writeText(roomId);
       setOpen(false);
   };
     return (
@@ -55,7 +55,7 @@ const ChatRoomHeader = ({handleClick, setSubmit, room})=>{
                     <GroupAddOutlinedIcon style={{ position: 'relative', fontSize: "xxx-large", color: "white" }}></GroupAddOutlinedIcon>
                   </Button>
                 </Tooltip>
-                <MeetingInfoDialog isOpen = {isOpen} handleOpenClose = {handleOpenClose} copyText = {copyText} room = {room}/>
+                <MeetingInfoDialog isOpen = {isOpen} handleOpenClose = {handleOpenClose} copyText = {copyText} room = {room} roomId = {roomId}/>
               </Grid>
               <Grid item>
                 {/* Switch to video call icon */}

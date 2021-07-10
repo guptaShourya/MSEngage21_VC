@@ -5,6 +5,7 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import VideoChat from "../VideoChat";
 import getToken from "./getChatToken";
 import ChatComponent from "./ChatScreenComponent";
+import generateCode from "../MeetingCodeGenerator";
 const Chat = require("twilio-chat");
 
 // Chat home window component
@@ -22,12 +23,13 @@ class ChatScreen extends React.Component {
       client: null, 
       email: this.props.email, // user email
       room: this.props.room, // room name entered
+      roomId: this.props.roomId
     };
 
   };
   componentDidMount = async () => {
     document.getElementsByTagName('body')[0].style.background = "rgb(255,255,255)"; // change background
-    const { email, room } = this.state;
+    const { email, room , roomId} = this.state;
     let token = ""; 
 
     this.setState({ loading: true });
@@ -50,14 +52,15 @@ class ChatScreen extends React.Component {
       const token = await this.getToken(email);
       client.updateToken(token);
     });
-    this.joinChat(room);
+    this.joinChat(roomId, room);
   }
-  joinChat = async (room)=>{
+  joinChat = async (roomId, roomName)=>{
     try { //if channel exists
       const {client} = this.state;
-      const channel = await client.getChannelByUniqueName(room); // retrieve channel data
+      const channel = await client.getChannelByUniqueName(roomId); // retrieve channel data
       await this.joinChannel(channel); //join channel
       this.setState({ channel, loading: false });
+      this.setState({room: channel.friendlyName, roomId: channel.uniqueName});
       const messages = await channel.getMessages(); // retrieve messages
       this.setState({ messages: messages.items || [] });
       const channels = await client.getSubscribedChannels(); //retrieve subscribed channel
@@ -67,11 +70,12 @@ class ChatScreen extends React.Component {
         const {client} = this.state;
         // create a new channel
         const channel = await client.createChannel({
-          uniqueName: room,
-          friendlyName: room,
+          uniqueName: generateCode(),
+          friendlyName: roomName,
         });
         await this.joinChannel(channel); //join the channel
         this.setState({ channel, loading: false });
+        this.setState({room: channel.friendlyName, roomId: channel.uniqueName});
         const channels = await client.getSubscribedChannels(); //retrieve subscribed channel
         this.setState({channelList: channels.items || []});
       } catch {
@@ -113,20 +117,20 @@ class ChatScreen extends React.Component {
     this.setState({ isVideo: true });
   }
 // handles switching channels on click
-  switchChannel = (roomName)=>{
-    this.setState({room: roomName});
-    this.joinChat(roomName);
+  switchChannel = (roomName, newRoomId)=>{
+    this.setState({room: roomName, roomId: newRoomId});
+    this.joinChat(newRoomId, roomName);
   }
   // set state (text)
   setText = (val) => {
     this.setState({text: val});
   }
   render() {
-    const { loading, text, messages, channel, isVideo, channelList, email, room} = this.state;
+    const { loading, text, messages, channel, isVideo, channelList, email, room, roomId} = this.state;
     const { setSubmit } = this.props;
     const channels = []; // list of meetings joined
     for(let i = 0; i < channelList.length; i++){
-      channels.push(<Button style = {{display: "block"}} onClick = {()=>{this.switchChannel(channelList[i].friendlyName)}}>
+      channels.push(<Button style = {{display: "block"}} onClick = {()=>{this.switchChannel(channelList[i].friendlyName, channelList[i].uniqueName)}}>
         <ListItem>
           <ChevronRightIcon/>
           {channelList[i].friendlyName}
@@ -136,11 +140,11 @@ class ChatScreen extends React.Component {
     let component;
     if (isVideo) {
       component = <VideoChat username={email} roomName={room} messages={messages}
-        setIsVideo={this.setIsVideo} sendMessage={this.sendMessageExternal} />
+        setIsVideo={this.setIsVideo} sendMessage={this.sendMessageExternal} roomId = {roomId} />
     } else {
       component = <ChatComponent loading = {loading} sendMessage = {this.sendMessageExternal} channel = {channel}
       text = {text} setText = {this.setText} email = {email} messages = {messages} channels = {channels} 
-      handleClick = {this.handleClick} setSubmit = {setSubmit} room = {room}/>
+      handleClick = {this.handleClick} setSubmit = {setSubmit} room = {room} roomId = {roomId}/>
     }
     return (
       component
