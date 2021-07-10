@@ -10,6 +10,7 @@ const Test = () => {
   // state variables
   const [username, setUsername] = useState(""); //username
   const [roomName, setRoomName] = useState(""); //roomname
+  const [roomId, setRoomId] = useState("");
   const [submit, setSubmit] = useState(false); //
   const connecting = false;
   
@@ -21,6 +22,11 @@ const Test = () => {
   // update room name on change
   const handleRoomNameChange = useCallback((event) => {
     setRoomName(event.target.value);
+  }, []);
+
+  // update room name on change
+  const handleRoomIdChange = useCallback((event) => {
+    setRoomId(event.target.value);
   }, []);
 
   // change component to chat screen
@@ -35,7 +41,7 @@ const Test = () => {
   // if logged in
   if (submit) {
     render = (
-      <ChatScreen email = {username} room = {roomName} setSubmit = {setSubmit}/>
+      <ChatScreen email = {username} room = {roomName} setSubmit = {setSubmit} roomId = {roomId}/>
     );
   } else { 
     // if not logged in
@@ -47,6 +53,8 @@ const Test = () => {
         handleRoomNameChange={handleRoomNameChange}
         handleSubmit={handleSubmit}
         connecting={connecting}
+        roomId = {roomId}
+        handleRoomIdChange = {handleRoomIdChange}
       />
     );
   }

@@ -12,6 +12,7 @@ const VideoChat = (props) => {
   // state variables
   const username = props.username;
   const roomName = props.roomName;
+  const roomId = props.roomId;
   const [room, setRoom] = useState(null); //room details
   const [connecting, setConnecting] = useState(false); //current status
   const [disconnect, setDisconnect] = useState(false);
@@ -30,7 +31,7 @@ const VideoChat = (props) => {
         method: "POST",
         body: JSON.stringify({
           identity: username,
-          room: roomName,
+          room: roomId,
         }),
         headers: {
           "Content-Type": "application/json",
@@ -39,7 +40,7 @@ const VideoChat = (props) => {
 
       // connect to the room using twilio API
       Video.connect(data.token, {
-        name: roomName,
+        name: roomId,
         dominantSpeaker : true, //enable dominant speaker feature
       }).then((room) => {
           setConnecting(false);
@@ -49,7 +50,7 @@ const VideoChat = (props) => {
           setConnecting(false);
         });
     },
-    [roomName, username]
+    [roomId, username]
   );
 
   // Ejects the user from the room and puts in the Lobby
@@ -104,9 +105,9 @@ const VideoChat = (props) => {
     render = (
       <Grid container style = {{maxWidth : "80%", height: "98vh", justifyContent: "center", marginRight: "20%", alignItems: "center"}} id = 'room'>
       <Grid item>
-        <Room roomName={roomName} room={room} handleLogout={handleLogout} />
+        <Room roomName={roomName} room={room} handleLogout={handleLogout}/>
       </Grid>
-        <RoomHeader handleLogout = {handleLogout} room = {room} roomName = {roomName} 
+        <RoomHeader handleLogout = {handleLogout} room = {room} roomName = {roomName} roomId = {roomId} 
           messages = {props.messages} sendMessage = {props.sendMessage} audio = {audio} video = {video}/>
       </Grid>
     );

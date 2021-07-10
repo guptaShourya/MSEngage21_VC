@@ -4,7 +4,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 import zoomTrack from "./utils/ZoomScreen";
 // Rooms.js - connects to Twilio video services
 
-const Room = ({ roomName, room }) => {
+const Room = ({ roomName, room}) => {
 
   // State Variables
   const [participants, setParticipants] = useState([]); //participants in meeting
