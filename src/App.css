@@ -48,8 +48,8 @@ main {
   font-family: revert;
   background: whitesmoke;
   padding: 3%;
-  border-radius: 10px;
-  width: 25%;
+  border-radius: 0px 0px 10px 10px;
+  /* width: 25%; */
   box-shadow: 10px black;
 }
 
