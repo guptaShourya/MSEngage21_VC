@@ -3,7 +3,7 @@ import GroupAddIcon from '@material-ui/icons/GroupAddTwoTone';
 import { Tooltip } from '@material-ui/core';
 import MeetingInfoDialog from './MeetingInfoDialog';
 
-const AddOthers = ({roomName}) => {
+const AddOthers = ({roomName, roomId}) => {
     // to open/close dialog box
     const [isOpen, setOpen] = useState(false);
     const handleOpenClose = () => {
@@ -12,7 +12,7 @@ const AddOthers = ({roomName}) => {
 
     //copy text (roomName) to clipboard and close the dialog box
     const copyText = () => {
-        navigator.clipboard.writeText(roomName);
+        navigator.clipboard.writeText(roomId);
         setOpen(false);
     };
 
@@ -25,7 +25,7 @@ const AddOthers = ({roomName}) => {
                 </Tooltip>
             </button>
             {/* Meeting info dialog */}
-            <MeetingInfoDialog isOpen = {isOpen} handleOpenClose = {handleOpenClose} copyText = {copyText} room = {roomName}/>
+            <MeetingInfoDialog isOpen = {isOpen} handleOpenClose = {handleOpenClose} copyText = {copyText} room = {roomName} roomId = {roomId}/>
         </div>
     );
 }

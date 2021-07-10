@@ -8,7 +8,7 @@ import AddOthers from './icons/AddOthers';
 import ScreenShare from './icons/ScreenShare';
 import { Grid } from '@material-ui/core';
 
-const RoomHeader = ({ handleLogout, room, roomName, messages, sendMessage, audio, video }) => {
+const RoomHeader = ({ handleLogout, room, roomName, messages, sendMessage, audio, video, roomId }) => {
 
   return (
     <Grid id="toolbar" item>
@@ -20,7 +20,7 @@ const RoomHeader = ({ handleLogout, room, roomName, messages, sendMessage, audio
       <MicButton room={room} audio = {audio}/>
 
       {/* Add others button */}
-      <AddOthers roomName={roomName} />
+      <AddOthers roomName={roomName} roomId = {roomId}/>
 
       {/* End call button */}
       <LogoutButton handleLogout={handleLogout} />
