@@ -10,7 +10,7 @@ class ChatItem extends React.Component {
     return (
       <ListItem style={styles.listItem(isOwnMessage)}>
         {/* author tag */}
-        <div style={styles.author}>{isOwnMessage?"You":message.author}</div>
+        <div style={styles.author}>{isOwnMessage ? "You" : message.author}</div>
         {/* message content */}
         <div style={styles.container(isOwnMessage)}>
           {message.body}
@@ -31,11 +31,12 @@ const styles = {
   }),
   container: (isOwnMessage) => ({
     maxWidth: "75%",
-    borderRadius: isOwnMessage? "12px 12px 0px 12px": "12px 12px 12px 0px",
+    borderRadius: isOwnMessage ? "12px 12px 0px 12px" : "12px 12px 12px 0px",
     padding: 16,
     color: "black",
     fontSize: 12,
     backgroundColor: isOwnMessage ? "rgb(193, 229, 219)" : "#edeef2",
+    wordBreak: "break-word"
   }),
   author: { fontSize: "0.8rem", color: "gray" },
   timestamp: { fontSize: "0.65rem", color: "gray", textAlign: "right", paddingTop: 4 },

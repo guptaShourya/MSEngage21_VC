@@ -2,6 +2,7 @@ const zoomTrack = (event) => {
 
     // get screen element
     const trackElement = event.target;
+    // get participants container
     const container = document.getElementById('participants');
 
     if (!trackElement.classList.contains('screenZoomed')) {
@@ -9,7 +10,7 @@ const zoomTrack = (event) => {
         trackElement.classList.add('screenZoomed');
 
         // hide participants video
-        container.classList.add('participantHidden'); 
+        container.classList.add('participantHidden');
 
         // minimize toolbar
         document.getElementById('toolbar').classList.add('toolbarMin');
@@ -20,6 +21,8 @@ const zoomTrack = (event) => {
 
         // reset the hidden components
         container.classList.remove('participantHidden');
+
+        // reset toolbar
         document.getElementById('toolbar').classList.remove('toolbarMin');
     }
 }

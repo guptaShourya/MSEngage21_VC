@@ -1,29 +1,23 @@
 import React, { useState, useCallback, useEffect } from "react";
 import Video from "twilio-video";
-import Lobby from "./Lobby";
+import { Grid } from "@material-ui/core";
 import Room from "./Room";
 import RoomHeader from "./toolbar/RoomHeader";
-
+import DisplayPreviewUtil from "../DisplayPreview/DisplayPreviewUtil";
 // child to App.js
 // VideoChat.js handles data about the chat
 
-const VideoChat = () => {
+const VideoChat = (props) => {
 
   // state variables
-  const [username, setUsername] = useState(""); //username
-  const [roomName, setRoomName] = useState(""); //roomname
+  const username = props.username;
+  const roomName = props.roomName;
+  const roomId = props.roomId;
   const [room, setRoom] = useState(null); //room details
   const [connecting, setConnecting] = useState(false); //current status
-  
-  //update username on change
-  const handleUsernameChange = useCallback((event) => {
-    setUsername(event.target.value);
-  }, []);
-
-  // update room name on change
-  const handleRoomNameChange = useCallback((event) => {
-    setRoomName(event.target.value);
-  }, []);
+  const [disconnect, setDisconnect] = useState(false);
+  const [video, setVideo] = useState(true);
+  const [audio, setAudio] = useState(true);
 
   // Method to send Username & Roomname to the server
   // And recieve an access token
@@ -37,7 +31,7 @@ const VideoChat = () => {
         method: "POST",
         body: JSON.stringify({
           identity: username,
-          room: roomName,
+          room: roomId,
         }),
         headers: {
           "Content-Type": "application/json",
@@ -46,8 +40,8 @@ const VideoChat = () => {
 
       // connect to the room using twilio API
       Video.connect(data.token, {
-        name: roomName,
-        dominantSpeaker : true //enable dominant speaker feature
+        name: roomId,
+        dominantSpeaker : true, //enable dominant speaker feature
       }).then((room) => {
           setConnecting(false);
           setRoom(room);
@@ -56,27 +50,28 @@ const VideoChat = () => {
           setConnecting(false);
         });
     },
-    [roomName, username]
+    [roomId, username]
   );
 
   // Ejects the user from the room and puts in the Lobby
-  const handleLogout = useCallback(() => {
+  const handleLogout = useCallback((event) => {
+    event.preventDefault();
     document.title = "Microsoft Engage 2021"
     setRoom((prevRoom) => {
       if (prevRoom) {
-
         // stop media tracks before disconnecting from room
         prevRoom.localParticipant.tracks.forEach((trackPub) => {
-          if(trackPub.track.kind !== 'data'){
             trackPub.track.stop();
+            if(trackPub.track.kind === 'video'){
+                trackPub.unpublish();
           }
         });
-        
         // disconnect from room
         prevRoom.disconnect();
       }
       return null;
     });
+    setDisconnect(true);
   }, []);
 
   useEffect(() => {
@@ -103,25 +98,23 @@ const VideoChat = () => {
   // if room already exists then render Room.js
   if (room) {
     render = (
-      <>
-      <Room roomName={roomName} room={room} handleLogout={handleLogout} />
-      <footer>
-        <RoomHeader handleLogout = {handleLogout} room = {room} roomName = {roomName}/>
-      </footer>
-      </>
+      <Grid container style = {{maxWidth : "80%", height: "98vh", justifyContent: "center", marginRight: "20%", alignItems: "center"}} id = 'room'>
+      <Grid item>
+        <Room roomName={roomName} room={room} handleLogout={handleLogout}/>
+      </Grid>
+        <RoomHeader handleLogout = {handleLogout} room = {room} roomName = {roomName} roomId = {roomId} 
+          messages = {props.messages} sendMessage = {props.sendMessage} audio = {audio} video = {video} scrollToBottom = {props.scrollToBottom}/>
+      </Grid>
     );
-  } else { 
-    // If room doesnt exists then render Lobby.js
+  } else if(disconnect){ 
+      props.setIsVideo(false);
+      render = <div></div>
+  }else{
+      // If room doesnt exists then render Lobby.js
     render = (
-      <Lobby
-        username={username}
-        roomName={roomName}
-        handleUsernameChange={handleUsernameChange}
-        handleRoomNameChange={handleRoomNameChange}
-        handleSubmit={handleSubmit}
-        connecting={connecting}
-      />
-    );
+        <DisplayPreviewUtil handleSubmit = {handleSubmit} connecting = {connecting} setConnecting = {setConnecting}
+         setAudio = {setAudio} setVideo = {setVideo} audio = {audio} video = {video}/>
+      );
   }
   return render;
 };

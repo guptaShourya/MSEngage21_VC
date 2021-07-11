@@ -9,21 +9,25 @@ import ChatRoomHeader from './ChatRoomHeader';
 import ChannelsList from './ChannelsList';
 import ChatMessagesArea from './ChatMessagesArea';
 
-const ChatComponent = ({ loading, sendMessage, channel, text, setText, email, messages, channels, handleClick, setSubmit, room, roomId }) => {
+const ChatComponent = ({
+    loading, sendMessage, channel,
+    text, setText, email, messages,
+    channels, handleClick, setSubmit,
+    room, roomId, scrollToBottom, participants }) => {
     return (
         <Container component="main" maxWidth="md" style={{ maxWidth: "none", paddingLeft: "0px", background: "rgb(242, 243, 248)" }}>
             <Backdrop open={loading} style={{ zIndex: 99999 }}>
                 <CircularProgress style={{ color: "white" }} />
             </Backdrop>
-            {/* Room header */}
-            <ChatRoomHeader handleClick={handleClick} setSubmit={setSubmit} room={room} roomId = {roomId} /> 
-            {/* Main component */}
+            {/* Chat Room header */}
+            <ChatRoomHeader handleClick={handleClick} setSubmit={setSubmit} room={room} roomId={roomId} participants={participants} />
+            {/* Main Chat component */}
             <Grid container style={{ width: "100%" }}>
                 {/* List of meetings joined */}
                 <ChannelsList channels={channels} />
                 {/* Chat message area */}
-                <ChatMessagesArea sendMessage = {sendMessage} channel = {channel} text = {text}
-                 setText = {setText} email = {email} messages = {messages}/>
+                <ChatMessagesArea sendMessage={sendMessage} channel={channel} text={text}
+                    setText={setText} email={email} messages={messages} scrollToBottom={scrollToBottom} />
             </Grid>
 
         </Container>

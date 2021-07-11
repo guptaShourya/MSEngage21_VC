@@ -5,6 +5,7 @@ import { Tooltip } from '@material-ui/core';
 const LogoutButton = ({ handleLogout }) => {
 
     return (
+        // Logout icon
         <div className='toolbarDiv'>
             <button onClick={handleLogout} style={{ backgroundColor: "#ff484e" }}>
                 <Tooltip title="Logout">

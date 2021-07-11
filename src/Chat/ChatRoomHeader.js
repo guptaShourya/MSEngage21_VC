@@ -1,73 +1,56 @@
-import React , {useState} from 'react';
+import React, { useState } from 'react';
 import {
-    AppBar,
-    Grid,
-    Toolbar,
-    Typography,
-    Button,
-    Tooltip,
-  } from "@material-ui/core";
-import VideoCallOutlinedIcon from '@material-ui/icons/VideoCallOutlined';
-import ExitToAppOutlinedIcon from '@material-ui/icons/ExitToAppOutlined';
-import GroupAddOutlinedIcon from '@material-ui/icons/GroupAddOutlined';
-import MeetingInfoDialog from "../toolbar/icons/MeetingInfoDialog";
+  AppBar,
+  Grid,
+  Toolbar,
+  Typography,
+} from "@material-ui/core";
+import MeetingMembers from './MeetingMembers';
+import AddOthersChat from './AddOthersChat';
+import LeaveChat from './LeaveChat';
+import SwitchToVideo from './SwitchToVideo';
 
 // Chat room header
-const ChatRoomHeader = ({handleClick, setSubmit, room, roomId})=>{
-  // to open/close dialog box
-  const [isOpen, setOpen] = useState(false);
+const ChatRoomHeader = ({ handleClick, setSubmit, room, roomId, participants }) => {
+  const [isOpen, setOpen] = useState(false); //trigger open/close dialog box
+
+  // toggle value of isOpen
   const handleOpenClose = () => {
-      setOpen(!isOpen);
+    setOpen(!isOpen);
   }
 
-  //copy text (roomName) to clipboard and close the dialog box
+  // copy text to clipboard
   const copyText = () => {
-      navigator.clipboard.writeText(roomId);
-      setOpen(false);
+    navigator.clipboard.writeText(roomId); //Copy roomId
+    setOpen(false); //Close dialog box
   };
-    return (
-        <AppBar elevation={10}>
-          <Toolbar style={{ justifyContent: 'space-between' }}>
-            <Typography variant="h6" style = {{width : "30%"}}>
-              YOUR MEETINGS
+  return (
+    <AppBar elevation={10}>
+      <Toolbar style={{ justifyContent: 'space-between' }}>
+        <Typography variant="h6" style={{ width: "30%" }}>
+          YOUR MEETINGS
+        </Typography>
+        <Grid container direction="row-reverse">
+          {/* Meeting name */}
+          <Grid item>
+            <Typography variant='h6' style={{ marginTop: "15px" }}>
+              MEETING: {room.toUpperCase()}
             </Typography>
-            <Grid container direction = "row-reverse">
-              <Grid item>
-                <Typography variant = 'h6'>
-                    MEETING: {room}
-                </Typography>
-              </Grid>
-            </Grid>
-            {/* icons */}
-            <Grid container direction="row-reverse" style = {{width: "84%"}}>
-              {/* Leave icon */}
-              <Grid item>
-                <Tooltip title="Leave">
-                  <Button onClick = {() => {setSubmit()}}>
-                    <ExitToAppOutlinedIcon style={{ position: 'relative', fontSize: "2.45rem", color: "white", marginTop :'4px' }}></ExitToAppOutlinedIcon>
-                  </Button>
-                </Tooltip>
-              </Grid>
-              <Grid item>
-                {/* Add others icon */}
-                <Tooltip title="Add others">
-                  <Button onClick = {handleOpenClose}>
-                    <GroupAddOutlinedIcon style={{ position: 'relative', fontSize: "xxx-large", color: "white" }}></GroupAddOutlinedIcon>
-                  </Button>
-                </Tooltip>
-                <MeetingInfoDialog isOpen = {isOpen} handleOpenClose = {handleOpenClose} copyText = {copyText} room = {room} roomId = {roomId}/>
-              </Grid>
-              <Grid item>
-                {/* Switch to video call icon */}
-                <Tooltip title="Switch to Video call">
-                  <Button onClick={() =>{handleClick()}}>
-                    <VideoCallOutlinedIcon style={{ position: 'relative', fontSize: "xxx-large", color: "white" }}></VideoCallOutlinedIcon>
-                  </Button>
-                </Tooltip>
-              </Grid>
-            </Grid>
-          </Toolbar>
-        </AppBar>
-    );
+          </Grid>
+          {/* Utility Icons */}
+          <Grid container direction="row" style={{ width: "70%" }}>
+            {/* Switch to video call icon */}
+            <SwitchToVideo handleClick={handleClick} />
+            {/* Add others icon */}
+            <AddOthersChat handleOpenClose={handleOpenClose} isOpen={isOpen} room={room} roomId={roomId} copyText={copyText} />
+            {/* Meeting members icon */}
+            <MeetingMembers participants={participants} />
+          </Grid>
+        </Grid>
+        {/* Leave Chat icon */}
+        <LeaveChat setSubmit={setSubmit} />
+      </Toolbar>
+    </AppBar>
+  );
 }
 export default ChatRoomHeader;

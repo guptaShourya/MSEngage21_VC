@@ -5,20 +5,25 @@ import VideocamOffIcon from '@material-ui/icons/VideocamOffTwoTone';
 import { Tooltip } from '@material-ui/core';
 
 const CameraButton = ({ room, video }) => {
-    // state of camera
-    let dep = 'x';
-    const [isCamera, setIsCamera] = useState(video);
+    let dep = 'x'; //handle sync with display preview options
+    const [isCamera, setIsCamera] = useState(video); //state of video camera
+    // switch to options chosen in display preview
     useEffect(
-        ()=>{
+        () => {
             switchOnOff("Cam", !isCamera, setIsCamera, room);
         }
-    , [dep, room, isCamera]);
+        , [dep, room, isCamera]);
+
     return (
+        // camera button
         <div className='toolbarDiv'>
             <button onClick={() => { switchOnOff("Cam", isCamera, setIsCamera, room) }}>
-            <Tooltip title = "Toggle Video">
-                {isCamera ? <VideocamIcon  style = {{color : 'black', margin: "10px"}}/> : <VideocamOffIcon  style = {{color : 'black', margin: "10px"}}/>}
-            </Tooltip>
+                <Tooltip title="Toggle Video">
+                    {isCamera ?
+                        <VideocamIcon style={{ color: 'black', margin: "10px" }} />
+                        :
+                        <VideocamOffIcon style={{ color: 'black', margin: "10px" }} />}
+                </Tooltip>
             </button>
         </div>
     );

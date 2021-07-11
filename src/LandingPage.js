@@ -1,19 +1,17 @@
 import React, { useState, useCallback } from "react";
-import Lobby from "./Lobby";
-import ChatScreen from "./Chat/ChatUtils";
+import Lobby from "./Lobby/Lobby";
+import ChatPage from "./Chat/ChatPage";
 import './App.css';
-// child to App.js
-// VideoChat.js handles data about the chat
 
-const Test = () => {
+const LandingPage = () => {
 
   // state variables
   const [username, setUsername] = useState(""); //username
   const [roomName, setRoomName] = useState(""); //roomname
-  const [roomId, setRoomId] = useState("");
-  const [submit, setSubmit] = useState(false); //
+  const [roomId, setRoomId] = useState(""); //unique room ID
+  const [submit, setSubmit] = useState(false); //trigger conditional rendering
   const connecting = false;
-  
+
   //update username on change
   const handleUsernameChange = useCallback((event) => {
     setUsername(event.target.value);
@@ -30,10 +28,10 @@ const Test = () => {
   }, []);
 
   // change component to chat screen
-  const handleSubmit = (event)=>{
-      event.preventDefault();
-      setSubmit(!submit);
-    }
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    setSubmit(!submit);
+  }
 
 
   let render;
@@ -41,11 +39,13 @@ const Test = () => {
   // if logged in
   if (submit) {
     render = (
-      <ChatScreen email = {username} room = {roomName} setSubmit = {setSubmit} roomId = {roomId}/>
+      // chat Page
+      <ChatPage email={username} room={roomName} setSubmit={setSubmit} roomId={roomId} />
     );
-  } else { 
+  } else {
     // if not logged in
     render = (
+      // login form
       <Lobby
         username={username}
         roomName={roomName}
@@ -53,12 +53,12 @@ const Test = () => {
         handleRoomNameChange={handleRoomNameChange}
         handleSubmit={handleSubmit}
         connecting={connecting}
-        roomId = {roomId}
-        handleRoomIdChange = {handleRoomIdChange}
+        roomId={roomId}
+        handleRoomIdChange={handleRoomIdChange}
       />
     );
   }
   return render;
 };
 
-export default Test;
+export default LandingPage;

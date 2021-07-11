@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import displayMessage from "./utils/Message";
-import FindNewWidth from "./utils/GridLayout"
+import FindNewWidth from "../utils/GridLayout";
 
 const Participant = ({ participant, local }) => {
   // video and audio tracks
@@ -9,12 +8,12 @@ const Participant = ({ participant, local }) => {
   const videoRef = useRef();
   const audioRef = useRef();
 
-  useEffect(()=>{
+  useEffect(() => {
     // resize videos according to number of participants
     FindNewWidth();
   });
 
-// set up media tracks
+  // set up media tracks
   const trackpubsToTracks = (trackMap) =>
     Array.from(trackMap.values())
       .map((publication) => publication.track)
@@ -30,13 +29,6 @@ const Participant = ({ participant, local }) => {
         setVideoTracks((videoTracks) => [...videoTracks, track]);
       } else if (track.kind === "audio") {
         setAudioTracks((audioTracks) => [...audioTracks, track]);
-      } else if (track.kind === 'data'){
-        // recieve a message
-          track.on('message', data => {
-            let author = JSON.parse(data)['author'];
-            let message = JSON.parse(data)['data'];
-            displayMessage(author, message);
-        });
       }
     };
     // unsubscribe tracks
@@ -45,7 +37,7 @@ const Participant = ({ participant, local }) => {
         setVideoTracks((videoTracks) => videoTracks.filter((v) => v !== track));
       } else if (track.kind === "audio") {
         setAudioTracks((audioTracks) => audioTracks.filter((a) => a !== track));
-      } 
+      }
     };
 
     participant.on("trackSubscribed", trackSubscribed);
@@ -57,7 +49,8 @@ const Participant = ({ participant, local }) => {
       participant.removeAllListeners();
     };
   }, [participant]);
-  
+
+  // attach video track
   useEffect(() => {
     const videoTrack = videoTracks[0];
     if (videoTrack) {
@@ -68,6 +61,7 @@ const Participant = ({ participant, local }) => {
     }
   }, [videoTracks]);
 
+  // attach audio track
   useEffect(() => {
     const audioTrack = audioTracks[0];
     if (audioTrack) {
@@ -77,11 +71,12 @@ const Participant = ({ participant, local }) => {
       };
     }
   }, [audioTracks]);
+
   return (
-    <div className="participant" id ={participant.sid}>
-      <video ref={videoRef} autoPlay={true} className = "participant-video"/>
+    <div className="participant" id={participant.sid}>
+      <video ref={videoRef} autoPlay={true} className="participant-video" />
       <audio ref={audioRef} autoPlay={true} muted={false} />
-      <p className = 'overlayName'>{local?"You":participant.identity}</p>
+      <p className='overlayName'>{local ? "You" : participant.identity}</p>
     </div>
   );
 };

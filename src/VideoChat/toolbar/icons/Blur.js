@@ -3,11 +3,15 @@ import { GaussianBlurBackgroundProcessor } from '@twilio/video-processors';
 import BlurOnIcon from '@material-ui/icons/BlurOnTwoTone';
 import BlurOffIcon from '@material-ui/icons/BlurOffTwoTone';
 import { Tooltip } from '@material-ui/core';
+
+// Blur video background
 const Blur = ({ participant }) => {
 
-    const [isBlur, setIsBlur] = useState(false);
+    const [isBlur, setIsBlur] = useState(false); //current status
 
     var videoTrack;
+
+    // get video track of participant
     participant.videoTracks.forEach((track) => {
         if (track.track.name !== 'screen_5139') {
             videoTrack = track.track;
@@ -15,16 +19,19 @@ const Blur = ({ participant }) => {
         }
     });
 
+    // set up blur
     const handleBlur = () => {
+        // video processor
         const blurBackground = new GaussianBlurBackgroundProcessor({
             assetsPath: 'assets'
         });
+        // if blur is currently not applied
         if (!isBlur) {
             blurBackground.loadModel().then(() => {
-                videoTrack.addProcessor(blurBackground);
+                videoTrack.addProcessor(blurBackground); //apply blur
             });
         } else {
-            videoTrack.removeProcessor(videoTrack.processor);
+            videoTrack.removeProcessor(videoTrack.processor); // remove blur
         }
         setIsBlur(!isBlur);
     }
@@ -32,11 +39,14 @@ const Blur = ({ participant }) => {
     return (
         <div className='toolbarDiv'>
             <button onClick={handleBlur}>
-                {isBlur ? <Tooltip title="Blur Background">
-                    <BlurOnIcon style={{ color: 'black', margin: "10px" }} />
-                </Tooltip> : <Tooltip title="Unblur Background">
-                    <BlurOffIcon style={{ color: 'black', margin: "10px" }} />
-                </Tooltip>}
+                {!isBlur ?
+                    <Tooltip title="Blur Background">
+                        <BlurOnIcon style={{ color: 'black', margin: "10px" }} />
+                    </Tooltip>
+                    :
+                    <Tooltip title="Unblur Background">
+                        <BlurOffIcon style={{ color: 'black', margin: "10px" }} />
+                    </Tooltip>}
             </button>
         </div>
     );

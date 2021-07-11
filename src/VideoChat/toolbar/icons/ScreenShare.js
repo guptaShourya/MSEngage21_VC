@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import ScreenShareTwoToneIcon from '@material-ui/icons/ScreenShareTwoTone';
 import CancelPresentationTwoToneIcon from '@material-ui/icons/CancelPresentationTwoTone';
-import FindNewWidth from '../../utils/GridLayout';
+import FindNewWidth from '../../../utils/GridLayout';
 import { Tooltip } from '@material-ui/core';
 const ScreenShare = ({ room }) => {
 
@@ -64,8 +64,11 @@ const ScreenShare = ({ room }) => {
     return (
         <div className='toolbarDiv'>
             <button onClick={handleShareScreen}>
-                <Tooltip title = "Toggle screen share">
-                {isScreenShared ? <CancelPresentationTwoToneIcon  style = {{color : 'black', margin: "10px"}}/> : <ScreenShareTwoToneIcon  style = {{color : 'black', margin: "10px"}}/>}
+                <Tooltip title="Toggle screen share">
+                    {isScreenShared ?
+                        <CancelPresentationTwoToneIcon style={{ color: 'black', margin: "10px" }} />
+                        :
+                        <ScreenShareTwoToneIcon style={{ color: 'black', margin: "10px" }} />}
                 </Tooltip>
             </button>
         </div>

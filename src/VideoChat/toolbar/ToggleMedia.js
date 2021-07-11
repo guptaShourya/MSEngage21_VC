@@ -1,7 +1,7 @@
 // method to handle switch on/off
 const switchOnOff = (media, status, setStatus, room) => {
     // for microphone
-    if(!room){
+    if (!room) {
         return;
     }
     if (media === 'Mic') {
