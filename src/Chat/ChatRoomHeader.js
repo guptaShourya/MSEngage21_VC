@@ -30,7 +30,7 @@ const ChatRoomHeader = ({ handleClick, setSubmit, room, roomId, participants }) 
         <Typography variant="h6" style={{ width: "30%" }}>
           YOUR MEETINGS
         </Typography>
-        <Grid container direction="row-reverse">
+        <Grid container direction="row-reverse" style = {{justifyContent: "space-between"}}>
           {/* Meeting name */}
           <Grid item>
             <Typography variant='h6' style={{ marginTop: "15px" }}>
@@ -38,13 +38,15 @@ const ChatRoomHeader = ({ handleClick, setSubmit, room, roomId, participants }) 
             </Typography>
           </Grid>
           {/* Utility Icons */}
-          <Grid container direction="row" style={{ width: "70%" }}>
+          <Grid item>
+          <Grid container direction="row" style = {{marginLeft: "30px"}}>
             {/* Switch to video call icon */}
             <SwitchToVideo handleClick={handleClick} />
             {/* Add others icon */}
             <AddOthersChat handleOpenClose={handleOpenClose} isOpen={isOpen} room={room} roomId={roomId} copyText={copyText} />
             {/* Meeting members icon */}
             <MeetingMembers participants={participants} />
+          </Grid>
           </Grid>
         </Grid>
         {/* Leave Chat icon */}

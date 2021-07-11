@@ -92,7 +92,7 @@ class ChatPage extends React.Component {
           loading: false }
           );
         // highlight current meeting tab
-        document.getElementById(roomId).style.background = "#e0e0e0";
+        document.getElementById(channel.uniqueName).style.background = "#e0e0e0";
       } catch {
         throw new Error("unable to create channel, please reload this page");
       }

@@ -1,0 +1,40 @@
+.lobbyContainer{
+    align-items: center;
+    justify-content: center;
+    height: 500px;
+}
+
+#formContainer{
+    width: 100%;
+
+}
+#Login-form{
+    max-width: 300px;
+    margin: 0 auto;
+    font-family: revert;
+    background: whitesmoke;
+    padding: 3%;
+    border-radius: 0px 0px 10px 10px;
+    box-shadow: 10px black;
+  }
+  
+  #Login-form button{
+    background: rgb(63, 81, 181);
+  }
+  
+  form > div {
+    width: 100%;
+    margin-bottom: 1em;
+  }
+  form > div > label {
+    display: block;
+    margin-bottom: 0.3em;
+  }
+  form > div > input {
+    display: block;
+    width: 100%;
+    font-size: 16px;
+    padding: 0.4em;
+    border-radius: 6px;
+    border: 1px solid #333e5a;
+  }
