@@ -21,7 +21,7 @@ const AddOthers = ({ roomName, roomId }) => {
     return (
         <div className='toolbarDiv'>
             {/* button */}
-            <button onClick={handleOpenClose} style={{ background: "#00be5d" }}>
+            <button onClick={handleOpenClose}>
                 <Tooltip title="Add others">
                     <GroupAddIcon style={{ color: 'black', margin: "10px" }} />
                 </Tooltip>

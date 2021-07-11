@@ -4,7 +4,7 @@ import { Grid, Button } from "@material-ui/core";
 const LobbyHeader = ({ isJoin, setIsJoin }) => {
 
     return (
-        <Grid item style={{ width: "300px", height: "45px" }}>
+        <Grid item style={{ width: "300px", height: "45px", marginRight: "20%" }}>
             <Grid container direction='row' style={{ width: '100%', background: 'whitesmoke', borderRadius: "10px 10px 0px 0px" }}>
                 {/* Host tab - active if isJoin is false else inactive */}
                 {isJoin ?

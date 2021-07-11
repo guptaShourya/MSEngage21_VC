@@ -14,7 +14,7 @@ const LobbyForm = ({
 }) => {
 
   return (
-    <Grid item style={{ width: '100%' }}>
+    <Grid item id = "formContainer">
       <form onSubmit={handleSubmit} id='Login-form'>
         {/* Input for Username */}
         <div>
@@ -43,7 +43,7 @@ const LobbyForm = ({
         </div>
 
         {/* Submit button - Displays text depending on request */}
-        <button type="submit" disabled={connecting}>
+        <button type="submit" disabled={connecting} className = "formButton">
           {connecting ? <div><i className="fa fa-spinner fa-spin"></i> <span>Connecting</span></div> : (isJoin ? "Join Meeting" : "Host Meeting")}
         </button>
       </form>

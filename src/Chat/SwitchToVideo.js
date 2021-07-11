@@ -1,6 +1,6 @@
 import React from "react";
 import { Grid, Tooltip, Button } from "@material-ui/core";
-import VideoCallOutlinedIcon from '@material-ui/icons/VideoCallOutlined';
+import VideoCallIcon from '@material-ui/icons/VideoCall';
 
 const SwitchToVideo = ({ handleClick }) => {
 
@@ -10,7 +10,7 @@ const SwitchToVideo = ({ handleClick }) => {
             <Tooltip title="Switch to Video call">
                 {/* button on click switches to video call */}
                 <Button onClick={() => { handleClick() }}>
-                    <VideoCallOutlinedIcon style={{ position: 'relative', fontSize: "xxx-large", color: "white" }}></VideoCallOutlinedIcon>
+                    <VideoCallIcon style={{ position: 'relative', fontSize: "xxx-large", color: "white" }}></VideoCallIcon>
                 </Button>
             </Tooltip>
         </Grid>

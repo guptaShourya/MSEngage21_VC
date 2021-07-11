@@ -40,12 +40,12 @@ const ChatRoomHeader = ({ handleClick, setSubmit, room, roomId, participants }) 
           {/* Utility Icons */}
           <Grid item>
           <Grid container direction="row" style = {{marginLeft: "30px"}}>
-            {/* Switch to video call icon */}
-            <SwitchToVideo handleClick={handleClick} />
-            {/* Add others icon */}
-            <AddOthersChat handleOpenClose={handleOpenClose} isOpen={isOpen} room={room} roomId={roomId} copyText={copyText} />
             {/* Meeting members icon */}
             <MeetingMembers participants={participants} />
+            {/* Add others icon */}
+            <AddOthersChat handleOpenClose={handleOpenClose} isOpen={isOpen} room={room} roomId={roomId} copyText={copyText} />
+            {/* Switch to video call icon */}
+            <SwitchToVideo handleClick={handleClick} />
           </Grid>
           </Grid>
         </Grid>

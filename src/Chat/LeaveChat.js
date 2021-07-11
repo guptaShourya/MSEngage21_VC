@@ -1,6 +1,6 @@
 import React from 'react';
 import { Grid, Tooltip, Button } from '@material-ui/core';
-import ExitToAppOutlinedIcon from '@material-ui/icons/ExitToAppOutlined';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 
 // leave chat icon
 const LeaveChat = ({ setSubmit }) => {
@@ -11,7 +11,7 @@ const LeaveChat = ({ setSubmit }) => {
             <Grid item>
                 <Tooltip title="Leave">
                     <Button onClick={() => { setSubmit() }}>
-                        <ExitToAppOutlinedIcon style={{ position: 'relative', fontSize: "2.45rem", color: "white", marginTop: '4px' }}></ExitToAppOutlinedIcon>
+                        <ExitToAppIcon style={{ position: 'relative', fontSize: "2.45rem", color: "white", marginTop: '4px' }}></ExitToAppIcon>
                     </Button>
                 </Tooltip>
             </Grid>

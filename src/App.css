@@ -41,7 +41,7 @@ main {
   flex-grow: 1;
 }
 
-#Login-form{
+/* #Login-form{
   max-width: 300px;
   margin: 0 auto;
   font-family: revert;
@@ -49,12 +49,12 @@ main {
   padding: 3%;
   border-radius: 0px 0px 10px 10px;
   /* width: 25%; */
-  box-shadow: 10px black;
-}
+  /* box-shadow: 10px black; */
+/* } */
 
-#Login-form button{
+/* #Login-form button{
   background: rgb(63, 81, 181);
-}
+}  */
 
 h2 {
   font-weight: 300;
