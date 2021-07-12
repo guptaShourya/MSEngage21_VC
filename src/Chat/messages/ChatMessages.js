@@ -1,6 +1,7 @@
 import React from 'react';
 import { Grid, List } from '@material-ui/core';
 import ChatItem from './ChatItem';
+import generateCode from '../../utils/MeetingCodeGenerator';
 
 const ChatMessages = ({ messages, email, apply }) => {
 
@@ -11,7 +12,7 @@ const ChatMessages = ({ messages, email, apply }) => {
                 {messages &&
                     messages.map((message) => (
                         <ChatItem
-                            // key={message.index}
+                            key={generateCode()}
                             message={message}
                             email={email}
                         />

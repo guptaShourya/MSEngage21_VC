@@ -11,8 +11,8 @@ const getChannelList = (channelList, switchChannel) => {
                 id={channelList[i].uniqueName}
                 style={{ display: "block", width: '100%', outline: 'none' }}
                 onClick={() => { switchChannel(channelList[i].friendlyName, channelList[i].uniqueName) }}>
-                <ListItem>
-                    <ChevronRightIcon />
+                <ListItem key = {channelList[i].uniqueName}>
+                    <ChevronRightIcon/>
                     {/* channel name */}
                     {channelList[i].friendlyName}
                 </ListItem>

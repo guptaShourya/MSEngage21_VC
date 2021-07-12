@@ -19,7 +19,7 @@ const MeetingMembers = ({ participants }) => {
     const participantsList = []; //list of members
 
     for (let i = 0; i < participants.length; i++) {
-        participantsList.push(<MenuItem>{participants[i]}</MenuItem>)
+        participantsList.push(<MenuItem key = {i}>{participants[i]}</MenuItem>)
     }
     return (
         <Grid item>

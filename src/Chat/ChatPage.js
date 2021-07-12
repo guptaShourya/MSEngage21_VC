@@ -64,15 +64,16 @@ class ChatPage extends React.Component {
       const messages = await channel.getMessages(); // retrieve messages
       const channels = await client.getSubscribedChannels(); //retrieve subscribed channel
       // set state variables
+      this.setState({channel});
       this.setState({
         channelList: channels.items || [],
         messages: messages.items ||[], 
         room: channel.friendlyName, 
         roomId: channel.uniqueName,
-        channel:channel, 
         loading: false  });
       // highlight current meeting tab
-      document.getElementById(roomId).classList.add("currentMeetingTab")
+      document.getElementById(roomId).classList.remove("meetingTab");
+      document.getElementById(roomId).classList.add("currentMeetingTab");
     } catch { //if channel doesn't exists
       try {
         const { client } = this.state;
@@ -84,15 +85,16 @@ class ChatPage extends React.Component {
         await this.joinChannel(channel); //join the channel
         const channels = await client.getSubscribedChannels(); //retrieve subscribed channel
         // set state variables
+        this.setState({channel});
         this.setState({ 
           channelList: channels.items || [], 
           room: channel.friendlyName, 
           roomId: channel.uniqueName, 
-          channel:channel, 
           loading: false }
           );
         // highlight current meeting tab
-        document.getElementById(channel.uniqueName).classList.add("currentMeetingTab")
+        document.getElementById(roomId).classList.remove("meetingTab");
+        document.getElementById(roomId).classList.add("currentMeetingTab");
       } catch {
         throw new Error("unable to create channel, please reload this page");
       }
@@ -111,7 +113,8 @@ class ChatPage extends React.Component {
   };
   // update messages on addition
   handleMessageAdded = (message) => {
-    const { messages } = this.state;
+    const { messages, channel } = this.state;
+    console.log(channel);
     this.setState(
       {
         messages: !!messages ? [...messages, message] : [message],
@@ -154,7 +157,9 @@ class ChatPage extends React.Component {
   }
   // handles switching channels on click
   switchChannel = (roomName, newRoomId) => {
-    const {roomId} = this.state;
+    const {roomId, channel} = this.state;
+    channel.off("messageAdded", this.handleMessageAdded);
+    channel.off("memberJoined", this.getParticipants);
     document.getElementById(roomId).classList.remove("currentMeetingTab")
     document.getElementById(roomId).classList.add('meetingTab');
     this.setState({ room: roomName, roomId: newRoomId });
