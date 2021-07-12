@@ -54,6 +54,7 @@
 }
 
 #chat_meetings_container{
+    overflow: auto;
     width: 17%;
     background: rgb(242, 243, 248);
     height: 100vh;
