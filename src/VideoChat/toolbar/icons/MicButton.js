@@ -18,9 +18,9 @@ const MicButton = ({ room, audio }) => {
             <button onClick={() => { switchOnOff("Mic", isMic, setIsMic, room) }}>
                 <Tooltip title="Toggle Audio">
                     {isMic ?
-                        <MicIcon style={{ color: 'black', margin: "10px" }} />
+                        <MicIcon className = "toolbar_icons"/>
                         :
-                        <MicOffIcon style={{ color: 'black', margin: "10px" }} />}
+                        <MicOffIcon className = "toolbar_icons"/>}
                 </Tooltip>
             </button>
         </div>

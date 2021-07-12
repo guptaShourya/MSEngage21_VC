@@ -4,9 +4,9 @@ import { Grid, List } from '@material-ui/core';
 // List of meetings joined
 const ChannelsList = ({ channels }) => {
   return (
-    <Grid item style={{ width: "18%", background: "rgb(242, 243, 248)", marginRightght: "15px", height: "100vh" }}>
+    <Grid item id = "chat_meetings_container">
       {/* List of meetings */}
-      <List style={{ paddingTop: "100px" }}>
+      <List id = 'meetings_list'>
         {channels}
       </List>
     </Grid>

@@ -12,16 +12,13 @@ const DisplayPreview = ({ toggleAudio, toggleVideo, handleClick, handleSubmit, c
             <Grid item id='local-media' className='participant'></Grid>
             {/* buttons */}
             <Grid item>
-                <Grid container direction='row' style={{ marginTop: "10px", justifyContent: 'space-around' }}>
+                <Grid container direction='row' className = "dp_icon_container">
                     {/* Toggle video camera icon */}
                     <Grid item>
-                        <button onClick={toggleVideo} style={{
-                            display: 'flex', marginRight: "5px", borderRadius: "50px",
-                            background: "white", boxShadow: "0px 8px 15px rgb(0 0 0 / 20%)", outline: "none"
-                        }}>
-                            <VideocamIcon style={{ display: 'inline-block', color: "black" }} />
-                            {video ? <ToggleOnIcon style={{ display: 'inline-block', color: "black" }} />
-                                : <ToggleOffIcon style={{ display: 'inline-block', color: "black" }} />}
+                        <button onClick={toggleVideo} className = "dp_icon_buttons">
+                            <VideocamIcon className = "dp_icons"/>
+                            {video ? <ToggleOnIcon className = "dp_icons"/>
+                                : <ToggleOffIcon className = "dp_icons"/>}
                         </button>
                     </Grid>
                     {/* Connect to meeting icon */}
@@ -34,13 +31,10 @@ const DisplayPreview = ({ toggleAudio, toggleVideo, handleClick, handleSubmit, c
                     </Grid>
                     {/* Toggle microphone icon */}
                     <Grid item>
-                        <button onClick={toggleAudio} style={{
-                            display: "flex", borderRadius: "50px",
-                            background: "white", boxShadow: "0px 8px 15px rgb(0 0 0 / 20%)", outline: "none"
-                        }}>
-                            <MicIcon style={{ display: 'inline-block', color: "black" }} />
-                            {audio ? <ToggleOnIcon style={{ display: 'inline-block', color: "black" }} />
-                                : <ToggleOffIcon style={{ display: 'inline-block', color: "black" }} />}
+                        <button onClick={toggleAudio} className = "dp_icon_buttons">
+                            <MicIcon className = "dp_icons"/>
+                            {audio ? <ToggleOnIcon className = "dp_icons"/>
+                                : <ToggleOffIcon className = "dp_icons"/>}
                         </button>
                     </Grid>
                 </Grid>

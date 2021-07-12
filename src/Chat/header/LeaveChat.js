@@ -6,12 +6,12 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 const LeaveChat = ({ setSubmit }) => {
 
     return (
-        <Grid container direction="row-reverse" style={{ width: "84%" }}>
+        <Grid container direction="row-reverse" id = 'chat_leave_container'>
             {/* Leave icon */}
             <Grid item>
                 <Tooltip title="Leave">
-                    <Button onClick={() => { setSubmit() }}>
-                        <ExitToAppIcon style={{ position: 'relative', fontSize: "2.45rem", color: "white", marginTop: '4px' }}></ExitToAppIcon>
+                    <Button onClick={() => { setSubmit() }} className = 'chat_buttons'>
+                        <ExitToAppIcon className = "chat_icons"></ExitToAppIcon>
                     </Button>
                 </Tooltip>
             </Grid>

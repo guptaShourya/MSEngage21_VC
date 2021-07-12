@@ -41,11 +41,11 @@ const Blur = ({ participant }) => {
             <button onClick={handleBlur}>
                 {!isBlur ?
                     <Tooltip title="Blur Background">
-                        <BlurOnIcon style={{ color: 'black', margin: "10px" }} />
+                        <BlurOnIcon className = "toolbar_icons"/>
                     </Tooltip>
                     :
                     <Tooltip title="Unblur Background">
-                        <BlurOffIcon style={{ color: 'black', margin: "10px" }} />
+                        <BlurOffIcon className = "toolbar_icons"/>
                     </Tooltip>}
             </button>
         </div>

@@ -5,9 +5,9 @@ import {
     Container,
     Grid,
 } from "@material-ui/core";
-import ChatRoomHeader from './ChatRoomHeader';
-import ChannelsList from './ChannelsList';
-import ChatMessagesArea from './ChatMessagesArea';
+import ChatRoomHeader from './header/ChatRoomHeader';
+import ChannelsList from './channelsList/ChannelsList';
+import ChatMessagesArea from './messages/ChatMessagesArea';
 
 const ChatComponent = ({
     loading, sendMessage, channel,
@@ -15,14 +15,14 @@ const ChatComponent = ({
     channels, handleClick, setSubmit,
     room, roomId, scrollToBottom, participants }) => {
     return (
-        <Container component="main" maxWidth="md" style={{ maxWidth: "none", paddingLeft: "0px", background: "rgb(242, 243, 248)" }}>
-            <Backdrop open={loading} style={{ zIndex: 99999 }}>
-                <CircularProgress style={{ color: "white" }} />
+        <Container component="main" maxWidth="md" id = "chat_container">
+            <Backdrop open={loading} id = "chat_backdrop">
+                <CircularProgress id = 'chat_prog' />
             </Backdrop>
             {/* Chat Room header */}
             <ChatRoomHeader handleClick={handleClick} setSubmit={setSubmit} room={room} roomId={roomId} participants={participants} />
             {/* Main Chat component */}
-            <Grid container style={{ width: "100%" }}>
+            <Grid container id = "main_chat_component">
                 {/* List of meetings joined */}
                 <ChannelsList channels={channels} />
                 {/* Chat message area */}

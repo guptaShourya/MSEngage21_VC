@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { Grid } from "@material-ui/core";
-import './Lobby.css'
 import LobbyHeader from "./LobbyHeader";
 import LobbyForm from "./LobbyForm";
 import test from './test.svg'
+
 // Lobby component - Handles the login in form 
 const Lobby = ({
   username,
@@ -16,14 +16,13 @@ const Lobby = ({
   handleRoomIdChange
 }) => {
   // change background color
-  document.getElementsByTagName("body")[0].style.background = "rgb(63, 81, 181)";
-
+  document.getElementsByTagName("body")[0].style.background = "rgb(181, 209, 235)";
   const [isJoin, setIsJoin] = useState(false); //toggle between "join" or "host"
 
   return (
-    <Grid container direction='column' style={{ alignItems: "center", justifyContent: "center", height: '500px' }}>
+    <Grid container direction='column' className = 'lobbyContainer'>
       {/* Join or Host header tabs */}
-      <img src = {test} style = {{width: "44%", height:"100%"}}></img> 
+      <img src = {test} alt = "Styling"></img> 
       <LobbyHeader isJoin={isJoin} setIsJoin={setIsJoin} />
       {/* Form */}
       <LobbyForm isJoin={isJoin} roomId={roomId} username={username}

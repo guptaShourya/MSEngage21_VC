@@ -9,8 +9,8 @@ const SwitchToVideo = ({ handleClick }) => {
             {/* Switch to video call icon */}
             <Tooltip title="Switch to Video call">
                 {/* button on click switches to video call */}
-                <Button onClick={() => { handleClick() }}>
-                    <VideoCallIcon style={{ position: 'relative', fontSize: "xxx-large", color: "white" }}></VideoCallIcon>
+                <Button onClick={() => { handleClick() }} className = "chat_buttons">
+                    <VideoCallIcon className = "chat_icons"></VideoCallIcon>
                 </Button>
             </Tooltip>
         </Grid>

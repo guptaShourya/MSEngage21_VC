@@ -23,7 +23,7 @@ const AddOthers = ({ roomName, roomId }) => {
             {/* button */}
             <button onClick={handleOpenClose}>
                 <Tooltip title="Add others">
-                    <GroupAddIcon style={{ color: 'black', margin: "10px" }} />
+                    <GroupAddIcon className = "toolbar_icons"/>
                 </Tooltip>
             </button>
             {/* Meeting info dialog */}

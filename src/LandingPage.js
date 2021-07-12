@@ -1,7 +1,6 @@
 import React, { useState, useCallback } from "react";
 import Lobby from "./Lobby/Lobby";
 import ChatPage from "./Chat/ChatPage";
-import './App.css';
 
 const LandingPage = () => {
 

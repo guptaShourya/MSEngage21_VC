@@ -7,9 +7,9 @@ const LogoutButton = ({ handleLogout }) => {
     return (
         // Logout icon
         <div className='toolbarDiv'>
-            <button onClick={handleLogout} style={{ backgroundColor: "#ff484e" }}>
+            <button onClick={handleLogout} id = "logout_button">
                 <Tooltip title="Logout">
-                    <CallEndIcon style={{ color: 'black', margin: "10px" }} />
+                    <CallEndIcon className = "toolbar_icons"/>
                 </Tooltip>
             </button>
         </div>

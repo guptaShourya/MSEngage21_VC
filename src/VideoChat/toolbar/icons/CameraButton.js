@@ -20,9 +20,9 @@ const CameraButton = ({ room, video }) => {
             <button onClick={() => { switchOnOff("Cam", isCamera, setIsCamera, room) }}>
                 <Tooltip title="Toggle Video">
                     {isCamera ?
-                        <VideocamIcon style={{ color: 'black', margin: "10px" }} />
+                        <VideocamIcon className = "toolbar_icons"/>
                         :
-                        <VideocamOffIcon style={{ color: 'black', margin: "10px" }} />}
+                        <VideocamOffIcon className = "toolbar_icons"/>}
                 </Tooltip>
             </button>
         </div>

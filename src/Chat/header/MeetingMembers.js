@@ -25,8 +25,8 @@ const MeetingMembers = ({ participants }) => {
         <Grid item>
             {/* icon */}
             <Tooltip title="Display Meeting Members">
-                <Button onClick={handleClick} aria-controls="simple-menu" aria-haspopup="true">
-                    <GroupIcon style={{ position: 'relative', fontSize: "xxx-large", color: "white" }}></GroupIcon>
+                <Button onClick={handleClick} aria-controls="simple-menu" aria-haspopup="true" className='chat_buttons'>
+                    <GroupIcon className = "chat_icons"></GroupIcon>
                 </Button>
             </Tooltip>
             {/* list opens on click */}

@@ -5,7 +5,7 @@ import ChatItem from './ChatItem';
 const ChatMessages = ({ messages, email, apply }) => {
 
     return (
-        <Grid item style={{ overflow: (apply?"auto":"none"), height: (apply?"70vh":"none") }} id='message-area'>
+        <Grid item className = {apply?"outVideo_message":"inVideo_message"} id='message-area'>
             {/* list of messages of a channel */}
             <List dense={true}>
                 {messages &&

@@ -34,7 +34,7 @@ const LobbyForm = ({
           <label htmlFor="room">{isJoin ? "Meeting Code" : "Meeting Name"}:</label>
           <input
             type="text"
-            id="room"
+            id="roomName"
             value={isJoin ? roomId : roomName}
             onChange={isJoin ? handleRoomIdChange : handleRoomNameChange}
             readOnly={connecting}

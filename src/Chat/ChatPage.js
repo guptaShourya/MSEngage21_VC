@@ -3,7 +3,7 @@ import VideoChat from "../VideoChat/VideoChat";
 import getToken from "./getChatToken";
 import ChatComponent from "./ChatScreen";
 import generateCode from "../utils/MeetingCodeGenerator";
-import getChannelList from "./ChannelsListUtils";
+import getChannelList from "./channelsList/ChannelsListUtils";
 const Chat = require("twilio-chat");
 
 // NOTE : This file is quite large in comparison to others due to event listeners & dependencies of the Twilio chat API
@@ -72,7 +72,7 @@ class ChatPage extends React.Component {
         channel:channel, 
         loading: false  });
       // highlight current meeting tab
-      document.getElementById(roomId).style.background = "#e0e0e0";
+      document.getElementById(roomId).classList.add("currentMeetingTab")
     } catch { //if channel doesn't exists
       try {
         const { client } = this.state;
@@ -92,7 +92,7 @@ class ChatPage extends React.Component {
           loading: false }
           );
         // highlight current meeting tab
-        document.getElementById(channel.uniqueName).style.background = "#e0e0e0";
+        document.getElementById(channel.uniqueName).classList.add("currentMeetingTab")
       } catch {
         throw new Error("unable to create channel, please reload this page");
       }
@@ -155,7 +155,7 @@ class ChatPage extends React.Component {
   // handles switching channels on click
   switchChannel = (roomName, newRoomId) => {
     const {roomId} = this.state;
-    document.getElementById(roomId).style.background = "rgb(242, 243, 248)";
+    document.getElementById(roomId).classList.add('meetingTab');
     this.setState({ room: roomName, roomId: newRoomId });
     this.joinChat(newRoomId, roomName);
   }

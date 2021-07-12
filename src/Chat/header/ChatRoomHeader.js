@@ -26,20 +26,20 @@ const ChatRoomHeader = ({ handleClick, setSubmit, room, roomId, participants }) 
   };
   return (
     <AppBar elevation={10}>
-      <Toolbar style={{ justifyContent: 'space-between' }}>
-        <Typography variant="h6" style={{ width: "30%" }}>
+      <Toolbar className = "roomHeaderSpacing">
+        <Typography variant="h6" id = 'meetings_tab'>
           YOUR MEETINGS
         </Typography>
-        <Grid container direction="row-reverse" style = {{justifyContent: "space-between"}}>
+        <Grid container direction="row-reverse" className = "roomHeaderSpacing">
           {/* Meeting name */}
           <Grid item>
-            <Typography variant='h6' style={{ marginTop: "15px" }}>
+            <Typography variant='h6' id = "meeting_name">
               MEETING: {room.toUpperCase()}
             </Typography>
           </Grid>
           {/* Utility Icons */}
           <Grid item>
-          <Grid container direction="row" style = {{marginLeft: "30px"}}>
+          <Grid container direction="row" id = "icon_container">
             {/* Meeting members icon */}
             <MeetingMembers participants={participants} />
             {/* Add others icon */}

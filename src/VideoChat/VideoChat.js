@@ -98,7 +98,7 @@ const VideoChat = (props) => {
   // if room already exists then render Room.js
   if (room) {
     render = (
-      <Grid container style = {{maxWidth : "80%", height: "98vh", justifyContent: "center", marginRight: "20%", alignItems: "center"}} id = 'room'>
+      <Grid container id = 'room'>
       <Grid item>
         <Room roomName={roomName} room={room} handleLogout={handleLogout}/>
       </Grid>

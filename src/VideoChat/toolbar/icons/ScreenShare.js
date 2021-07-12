@@ -66,9 +66,9 @@ const ScreenShare = ({ room }) => {
             <button onClick={handleShareScreen}>
                 <Tooltip title="Toggle screen share">
                     {isScreenShared ?
-                        <CancelPresentationTwoToneIcon style={{ color: 'black', margin: "10px" }} />
+                        <CancelPresentationTwoToneIcon className = "toolbar_icons"/>
                         :
-                        <ScreenShareTwoToneIcon style={{ color: 'black', margin: "10px" }} />}
+                        <ScreenShareTwoToneIcon className = "toolbar_icons"/>}
                 </Tooltip>
             </button>
         </div>

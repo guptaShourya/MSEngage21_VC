@@ -1,0 +1,163 @@
+.currentMeetingTab{
+    background: #e0e0e0 !important;
+}
+
+.meetingTab{
+    background: rgb(242, 243, 248) !important;
+}
+
+#chat_container{
+    max-width: none;
+    padding-left: 0px;
+    background: rgb(242, 243, 248);
+}
+
+#chat_backdrop{
+    z-index: 99999;
+}
+
+#chat_prog{
+    color: white;
+}
+
+#main_chat_component{
+    width: 100%;
+}
+
+.roomHeaderSpacing{
+    justify-content: space-between;
+}
+
+#meeting_name{
+    margin-top: 15px;
+}
+
+#meetings_tab{
+    width: 30%;
+}
+
+#icon_container{
+    margin-left: 30px;
+}
+
+.chat_icons{
+    position: relative;
+    font-size: xxx-large !important;
+    color: white;
+}
+.chat_buttons{
+    outline: none !important;
+}
+
+#chat_leave_container{
+    width: 84%;
+}
+
+#chat_meetings_container{
+    width: 17%;
+    background: rgb(242, 243, 248);
+    height: 100vh;
+}
+
+#meetings_list{
+    padding-top: 100px;
+}
+
+#chat_message_container{
+    width: 80%;
+    padding-right: 15px;
+}
+
+#chat_message_main{
+    padding-top: 100px;
+    border-width: 1px;
+    background: white;
+    border-radius: 3px;
+    padding-right: 10px;
+    padding-left: 10px;
+}
+
+.outVideo_message{
+    overflow: auto;
+    height: 70vh;
+}
+
+.inVideo_message{
+    overflow: none;
+    height: none;
+}
+
+.message_sent{
+    flex-direction: column !important;
+    align-items: flex-end !important;
+}
+
+.message_recieved{
+    flex-direction: column !important;
+    align-items: flex-start !important;
+}
+
+.message_sent_container{
+    max-width: 75%;
+    border-radius: 12px 12px 0px 12px;
+    padding: 16px;
+    color: black;
+    font-size: 12px;
+    background-color: rgb(193, 229, 219);
+    word-break: break-word;
+}
+
+.message_recieved_container{
+    max-width: 75%;
+    border-radius: 12px 12px 12px 0px;
+    padding: 16px;
+    color: black;
+    font-size: 12px;
+    background-color: #edeef2;
+    word-break: break-word;
+}
+
+.author{
+    font-size: 0.8rem;
+    color: gray;
+}
+
+.timestamp{
+    font-size: 0.65rem;
+    color: gray;
+    text-align: right;
+    padding-top: 4px;
+}
+
+.gridItemMessage{ 
+    margin-top: 12px !important;
+    margin-bottom: 12px !important;
+ }
+
+ .send_text_container{
+     padding: 10px;
+     position: fixed;
+     bottom: 15px;
+     width: 20% !important;
+     background: white;
+     border-radius: 0px 0px 10px 10px;
+ }
+
+ .textFieldContainer{
+    flex: 1;
+    margin-right: 12px !important;
+}
+
+.textField{
+    width: 100%;
+    border-width: 0px;
+    border-color: transparent;
+}
+
+.sendButton{
+    background-color: #3f51b5 !important;
+}
+
+.sendIcon{
+    color: white;
+}
