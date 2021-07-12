@@ -155,6 +155,7 @@ class ChatPage extends React.Component {
   // handles switching channels on click
   switchChannel = (roomName, newRoomId) => {
     const {roomId} = this.state;
+    document.getElementById(roomId).classList.remove("currentMeetingTab")
     document.getElementById(roomId).classList.add('meetingTab');
     this.setState({ room: roomName, roomId: newRoomId });
     this.joinChat(newRoomId, roomName);
