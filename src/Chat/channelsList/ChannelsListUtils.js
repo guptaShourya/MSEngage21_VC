@@ -9,9 +9,9 @@ const getChannelList = (channelList, switchChannel) => {
             // button to switch b/w channels
             <Button
                 id={channelList[i].uniqueName}
-                style={{ display: "block", width: '100%', outline: 'none' }}
+                className = "channel_list_button"
                 onClick={() => { switchChannel(channelList[i].friendlyName, channelList[i].uniqueName) }}>
-                <ListItem key = {channelList[i].uniqueName}>
+                <ListItem key = {channelList[i].uniqueName} className = "channel_list_item">
                     <ChevronRightIcon/>
                     {/* channel name */}
                     {channelList[i].friendlyName}
