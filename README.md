@@ -69,7 +69,7 @@ I executed the project in 4 sprints, each of 1 week. Each sprint had design, bui
 12. Logout : User can log off from the video chat and go back to the meeting dashboard
 13. Number of participants : Twilio programmable video can accommodate upto 50 video participants in a meeting.
              
-● UI/UX
+- UI/UX
 1. Responsive Icons : Icons in the application are responsive to the current status of the functionality they associate to. For example icons change if you choose to turn on/off your video.
 2. Intuitive Positioning : Each icon is placed at the best place where a user thinks of finding it.
 3. Animated Buttons : Connect / Host buttons come up on hover
